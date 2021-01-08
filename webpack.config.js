@@ -27,7 +27,7 @@ function setDMode() {
 const config = {
   mode: setDMode(),
   devtool: setDevTool(),
-  entry: './src/index.js',
+  entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
@@ -55,7 +55,7 @@ const config = {
       },
 
       {
-        test: /\.js$/,
+        test: /\.(js|jsx|tsx|ts)$/,
         exclude: /(node_modules)/,
         use: {
           loader: 'babel-loader',

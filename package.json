@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run eslint",
-    "eslint": "eslint src/**/*.js",
+    "eslint": "eslint src/**/*.ts",
     "dev": "webpack-dev-server --history-api-fallback --inline --open",
     "build": "npm run clear -s && webpack --progress",
     "clear": "del-cli dist"
@@ -22,7 +22,12 @@
   "homepage": "https://github.com/Alexus-bat/rsclone#readme",
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-proposal-object-rest-spread": "^7.12.1",
     "@babel/preset-env": "^7.12.7",
+    "@babel/preset-typescript": "^7.12.7",
+    "@typescript-eslint/eslint-plugin": "^4.12.0",
+    "@typescript-eslint/parser": "^4.12.0",
     "autoprefixer": "^10.0.2",
     "babel-loader": "^8.2.1",
     "copy-webpack-plugin": "^6.3.2",
@@ -30,7 +35,7 @@
     "css-mqpacker": "^7.0.0",
     "cssnano": "^4.1.10",
     "del-cli": "^3.0.1",
-    "eslint": "^7.13.0",
+    "eslint": "^7.17.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
     "file-loader": "^6.2.0",
@@ -43,6 +48,7 @@
     "postcss-loader": "^4.1.0",
     "sass": "^1.29.0",
     "sass-loader": "^10.1.0",
+    "typescript": "^4.1.3",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "4.41.2",
     "webpack-cli": "3.3.9",
