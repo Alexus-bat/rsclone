@@ -15,9 +15,16 @@
   src: url('../assets/fonts/nunito-bold.ttf');
 }
 
+@font-face {
+  font-weight: 400;
+  font-family: 'LifeCraft';
+  font-style: normal;
+  src: url('../assets/fonts/lifecraft.ttf');
+}
+
 body {
   position: relative;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'LifeCraft', sans-serif;
   font-weight: 400;
   background-color: $body-bg;
   font-size: $main-font-size;
