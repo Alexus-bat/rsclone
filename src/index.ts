@@ -1,7 +1,3 @@
-import './sass/style.scss';
+import start from './components/npc/npc.ts';
 
-console.log('Hello world')
-
-import test from './components/test/script.ts';
-
-test();
+start();
