@@ -43,28 +43,28 @@ export default class Main extends Phaser.Scene {
 
       this.anims.create({
           key: 'walkUp',
-          frames: this.anims.generateFrameNumbers('skeleton', { frames: [193, 194, 195, 196, 197, 198, 199, 200]}),
+          frames: this.anims.generateFrameNumbers('skeleton', { frames: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]}),
           frameRate: 20,
           repeat: -1
       }),
 
       this.anims.create({
           key: 'walkLeft',
-          frames: this.anims.generateFrameNumbers('skeleton', { frames: [216, 217, 218, 219, 220, 221, 222, 223, 224]}),
+          frames: this.anims.generateFrameNumbers('skeleton', { frames: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]}),
           frameRate: 20,
           repeat: -1
       }),
 
       this.anims.create({
           key: 'walkDown',
-          frames: this.anims.generateFrameNumbers('skeleton', { frames: [241, 242, 243, 244, 245, 246, 247, 248]}),
+          frames: this.anims.generateFrameNumbers('skeleton', { frames: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]}),
           frameRate: 20,
           repeat: -1
       }),
 
       this.anims.create({
           key: 'walkRight',
-          frames: this.anims.generateFrameNumbers('skeleton', { frames: [264, 265, 266, 267, 268, 269, 270, 271, 272]}),
+          frames: this.anims.generateFrameNumbers('skeleton', { frames: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]}),
           frameRate: 20,
           repeat: -1
       })
