@@ -1,15 +1,15 @@
 /* eslint-disable */
-export default class Main extends Phaser.Scene {
+import Player from './Player.ts';
 
-    private player?: Phaser.Physics.Matter.Sprite
-    private inputKeys?: object
+export default class Main extends Phaser.Scene {
+    private player?: Phaser.Physics.Matter.Sprite | any
 
     constructor() {
         super('MainScene');
     }
 
     preload() {
-        this.load.spritesheet('orc', '../assets/img/orc.png', {frameWidth: 64, frameHeight: 64});
+        Player.preload(this);
         this.load.image('tiles', '../assets/img/RPGNature.png');
         this.load.tilemapTiledJSON('map', '../assets/img/map.json');
     }
@@ -21,28 +21,6 @@ export default class Main extends Phaser.Scene {
         const layer2 = map.createLayer('Tile Layer 2', tiles, 0, 0);
         layer1.setCollisionByProperty({collides: true});
         this.matter.world.convertTilemapLayer(layer1);
-
-        this.player = this.matter.add.sprite(100, 100, 'orc');
-        // this.player.setScale(0.5)
-
-        const M = Phaser.Physics.Matter.Matter;
-        const w = this.player.width;
-        const h = this.player.height;
-
-        const sx = w / 2;
-        const sy = h / 2;
-
-        const playerCollider = M.Bodies.circle(sx, sy + 10, 20, {isSensor: false, label: 'playerCollider'});
-        const playerSensor = M.Bodies.circle(sx, sy, 24, {isSensor: true, label: 'playerSensor'});
-        const compoundBody = M.Body.create({
-            parts: [playerCollider, playerSensor],
-            frictionAir: 0.35,
-        });
-
-        this.player.setExistingBody(compoundBody);
-        this.player.setFixedRotation()
-
-        // this.cameras.main.startFollow(this.player);
 
         this.anims.create({
             key: 'walkUp',
@@ -70,36 +48,52 @@ export default class Main extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('orc', { frames: [264, 265, 266, 267, 268, 269, 270, 271, 272]}),
             frameRate: 20,
             repeat: -1
+        }),
+
+        this.anims.create({
+            key: 'attackUp',
+            frames: this.anims.generateFrameNumbers('orc', { frames: [288, 289, 290, 291, 292, 293]}),
+            frameRate: 20,
+            repeat: 1
+        }),
+
+        this.anims.create({
+            key: 'attackLeft',
+            frames: this.anims.generateFrameNumbers('orc', { frames: [312, 313, 314, 315, 316, 317]}),
+            frameRate: 20,
+            repeat: 1
+        }),
+
+        this.anims.create({
+            key: 'attackDown',
+            frames: this.anims.generateFrameNumbers('orc', { frames: [336, 337, 338, 339, 340, 341]}),
+            frameRate: 20,
+            repeat: 1
+        }),
+
+        this.anims.create({
+            key: 'attackRight',
+            frames: this.anims.generateFrameNumbers('orc', { frames: [360, 361, 362, 363, 364, 365]}),
+            frameRate: 20,
+            repeat: 1
         })
 
-        this.inputKeys = this.input.keyboard.addKeys({
+        this.player = new Player({scene: this, x: 100, y: 100, texture: 'orc', frame: 'walkRight'});
+
+        // this.player.setScale(0.5)
+        // this.cameras.main.startFollow(this.player);
+        const player2 = new Player({scene: this, x: 200, y: 200, texture: 'orc', frame: 'walkDown'});
+
+        this.player.inputKeys = this.input.keyboard.addKeys({
             up: Phaser.Input.Keyboard.KeyCodes.W,
             down: Phaser.Input.Keyboard.KeyCodes.S,
             left: Phaser.Input.Keyboard.KeyCodes.A,
             right: Phaser.Input.Keyboard.KeyCodes.D,
+            attack: Phaser.Input.Keyboard.KeyCodes.SPACE
         })
     }
 
-    update() {
-        const speed = 5;
-        const playerVelocity = new Phaser.Math.Vector2();
-        if (this.inputKeys?.left.isDown) {
-            this.player?.anims.play('walkLeft', true);
-            playerVelocity.x = -1;
-        } else if (this.inputKeys?.right.isDown) {
-            this.player?.anims.play('walkRight', true);
-            playerVelocity.x = 1;
-        }
-        if (this.inputKeys?.up.isDown) {
-            this.player?.anims.play('walkUp', true);
-            playerVelocity.y = -1;
-        } else if (this.inputKeys?.down.isDown) {
-            this.player?.anims.play('walkDown', true);
-            playerVelocity.y = 1;
-        }
-        if (this.inputKeys?.left.isUp && this.inputKeys.right.isUp && this.inputKeys.up.isUp && this.inputKeys.down.isUp) this.player.anims.isPlaying = false;
-        playerVelocity.normalize();
-        playerVelocity.scale(speed);
-        this.player?.setVelocity(playerVelocity.x, playerVelocity.y);
-    }
+   update() {
+       this.player?.update();
+   }
 }
