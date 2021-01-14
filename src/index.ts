@@ -1,3 +1,3 @@
-import start from './components/npc/npc.ts';
+import start from './components/orc-game/orc-game.ts';
 
 start();
