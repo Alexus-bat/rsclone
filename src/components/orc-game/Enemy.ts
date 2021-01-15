@@ -35,33 +35,37 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
   }
 
   move() {
-    const randNumber = helper.getRandomNumber(1, 4);
+    const randNumber = helper.getRandomNumber(1, 5);
 
     switch(randNumber) {
       case 1:
-        this.setVelocityX(10);
+        this.setVelocityX(helper.getRandomNumber(1, 15));
         break;
       case 2:
-        this.setVelocityX(-10);
+        this.setVelocityX(helper.getRandomNumber(-15, -1));
         break;
       case 3:
-        this.setVelocityY(10);
+        this.setVelocityY(helper.getRandomNumber(1, 15));
         break;
       case 4:
-        this.setVelocityY(-10);
+        this.setVelocityY(helper.getRandomNumber(-15, -1));
+        break;
+      case 5:
+        this.setVelocityY(0);
+        this.setVelocityX(0);
         break;
       default:
-        this.setVelocityX(10);
+        this.setVelocityX(5);
     }
 
     setTimeout(() => {
       this.setVelocityX(0);
       this.setVelocityY(0);
-    }, 500);
+    }, 100);
   }
 
   update() {
-    const speed = 2.5;
+    const speed = 1.5;
     const enemyVelocity = new Phaser.Math.Vector2();
 
     if (Math.abs(this.velocity.x) > 0.1 || Math.abs(this.velocity.y) > 0.1) {

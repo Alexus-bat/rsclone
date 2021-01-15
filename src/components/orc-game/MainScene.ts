@@ -6,7 +6,8 @@ import helper from "../helper/helper.ts";
 export default class Main extends Phaser.Scene {
     private player?: Phaser.Physics.Matter.Sprite | any
     private enemy?: Phaser.Physics.Matter.Sprite | any
-    private enemyAmount: number;
+    private enemyAmount: number
+    private timedEvent: Phaser.Time.TimerEvent | any
 
     constructor() {
         super('MainScene');
@@ -89,12 +90,11 @@ export default class Main extends Phaser.Scene {
           this.enemy = new Enemy({scene: this, x: helper.getRandomNumber(100, 412), y: helper.getRandomNumber(0, 412), texture: 'enemy-troll', frame: 'troll_idle_1'});
           this.enemy?.update()
           this.timedEvent = this.time.addEvent({
-            delay: helper.getRandomNumber(500, 1000),
+            delay: helper.getRandomNumber(100, 1000),
             callback: this.enemy.move,
             callbackScope: this.enemy,
             loop: true
           });
-
         }
 
         // this.player.setScale(0.5)
