@@ -88,18 +88,7 @@ export default class Main extends Phaser.Scene {
         this.player = new Player({scene: this, x: 100, y: 100, texture: 'orc', frame: 'walkRight'});
         for (let i = 0; i < this.enemyAmount; i += 1) {
           this.enemy = new Enemy({scene: this, x: helper.getRandomNumber(100, 412), y: helper.getRandomNumber(0, 412), texture: 'enemy-troll', frame: 'troll_idle_1'});
-          this.enemy?.update()
-          this.timedEvent = this.time.addEvent({
-            delay: helper.getRandomNumber(100, 1000),
-            callback: this.enemy.move,
-            callbackScope: this.enemy,
-            loop: true
-          });
         }
-
-        // this.player.setScale(0.5)
-        // this.cameras.main.startFollow(this.player);
-        // const player2 = new Player({scene: this, x: 200, y: 200, texture: 'orc', frame: 'walkDown'});
 
         this.player.inputKeys = this.input.keyboard.addKeys({
             up: Phaser.Input.Keyboard.KeyCodes.W,

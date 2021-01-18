@@ -26,6 +26,7 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
         this.weapon = this.scene.add.sprite(this.x + 10, this.y + 10, 'sword', 'sword-anim-1');
         this.weapon.setScale(0.8);
         this.weapon.setSize(12, 8);
+        this.scene.add.existing(this.weapon);
         this.setExistingBody(compoundBody);
         this.setFixedRotation();
 
