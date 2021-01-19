@@ -29,7 +29,6 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
         this.scene.add.existing(this.weapon);
         this.setExistingBody(compoundBody);
         this.setFixedRotation();
-
         this.play(frame, true);
     }
 

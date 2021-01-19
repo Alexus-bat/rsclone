@@ -36,7 +36,7 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
 
         const {Body, Bodies} = Phaser.Physics.Matter.Matter;
         const enemyCollider = Bodies.circle(this.x, this.y, 12, {isSensor: false, label: 'enemyCollider'});
-        const enemySensor = Bodies.circle(this.x, this.y, 24, {isSensor: true, label: 'enemySensor'});
+        const enemySensor = Bodies.circle(this.x, this.y, 35, {isSensor: true, label: 'enemySensor'});
         const compoundBody = Body.create({
             parts: [enemyCollider, enemySensor],
             frictionAir: 0.35,
@@ -54,6 +54,13 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
         this.setFixedRotation();
     }
 
+    destroy(fromScene?: boolean)
+    {
+        this.moveEvent.destroy()
+
+        super.destroy(fromScene);
+    }
+
     static preload(scene: Phaser.Scene) {
         scene.load.atlas('enemy-troll', '../assets/img/enemy-troll.png', `../../assets/img/enemy-troll_atlas.json`);
         scene.load.animation('enemy-troll_anim', '../assets/img/enemy-troll_anim.json');
@@ -62,6 +69,7 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
     get velocity() {
         return this.body.velocity
     }
+
 
     preUpdate(time: number, delta: number) {
         super.preUpdate(time, delta);
@@ -88,6 +96,9 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
         } else {
             this.anims.play('enemy-troll_idle', true);
         }
+    }
 
+    update(player) {
+        this.setVelocity(player.velocity.x, player.velocity.y);
     }
 }
