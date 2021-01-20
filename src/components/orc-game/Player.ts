@@ -92,7 +92,8 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
         }
 
         if (!this.anims.currentAnim.key.match(/attack/)) {
-            if (this.inputKeys?.left.isUp && this.inputKeys.right.isUp && this.inputKeys.up.isUp && this.inputKeys.down.isUp) this.anims.stop();
+            if (this.inputKeys?.left.isUp && this.inputKeys.right.isUp && this.inputKeys.up.isUp && this.inputKeys.down.isUp)
+                this.anims.stop();
         }
         playerVelocity.normalize();
         playerVelocity.scale(speed);

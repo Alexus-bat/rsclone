@@ -1,0 +1,24 @@
+{
+    "anims": [
+        {
+            "key": "enemy-troll_attack",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 8,
+            "frames": [
+                {
+                    "key": "enemy-troll-attack",
+                    "frame": "troll_attack_1"
+                },
+                {
+                    "key": "enemy-troll-attack",
+                    "frame": "troll_attack_2"
+                },
+                {
+                    "key": "enemy-troll-attack",
+                    "frame": "troll_attack_3"
+                }
+            ]
+        }
+    ]
+}

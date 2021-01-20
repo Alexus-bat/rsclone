@@ -105,12 +105,13 @@ export default class Main extends Phaser.Scene {
         this.matterCollision.addOnCollideStart({
             objectA: this.player,
             objectB: this.enemies,
-            callback: (obj) => {
-                console.log(obj, this.enemies);
+            callback: (obj: any) => {
                 const enemyId = obj.gameObjectB.body.id;
                 const currentEnemy = this.enemies.find((it: any) => it.body.id === enemyId);
-                currentEnemy.x = 0;
-                currentEnemy.y = 0;
+                currentEnemy.switchMode();
+                currentEnemy.player = this.player;
+                // currentEnemy.x = this.player.x;
+                // currentEnemy.y = this.player.y;
             },
         });
 
