@@ -5,7 +5,7 @@ interface DataInterface {
     x: number,
     y: number,
     texture: string | Phaser.Textures.Texture,
-    frame?: string | number | undefined
+    frame?: string | number | undefined,
 }
 
 enum Direction {
@@ -35,11 +35,12 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
         super(scene.matter.world, x, y, texture, frame);
         this.scene.add.existing(this);
         this.isAttacking = false;
+        this.health = 100;
         this.player = null;
 
         const {Body, Bodies} = Phaser.Physics.Matter.Matter;
         const enemyCollider = Bodies.circle(this.x, this.y, 12, {isSensor: false, label: 'enemyCollider'});
-        const enemySensor = Bodies.circle(this.x, this.y, 35, {isSensor: true, label: 'enemySensor'});
+        const enemySensor = Bodies.circle(this.x, this.y, 25, {isSensor: true, label: 'enemySensor'});
         const compoundBody = Body.create({
             parts: [enemyCollider, enemySensor],
             frictionAir: 0.35,
@@ -80,6 +81,10 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
 
     preUpdate(time: number, delta: number) {
         super.preUpdate(time, delta);
+        if (this.health === 0) {
+            this.x = 1000;
+            this.y = 1000;
+        }
         if (!this.isAttacking) {
             if (Math.abs(this.velocity.x) > 0.1 || Math.abs(this.velocity.y) > 0.1) {
                 this.anims.play('enemy-troll_walk', true);
@@ -104,7 +109,6 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
                     break
             }
         } else {
-            // this.anims.play('enemy-troll_attack', true);
             const dx = this.player.x - this.x;
             const dy = this.player.y - this.y;
             this.anims.play('enemy-troll_attack', true);
