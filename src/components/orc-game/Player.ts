@@ -36,31 +36,38 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
         const playerVelocity = new Phaser.Math.Vector2();
         if (this.inputKeys?.left.isDown) {
             this.anims.play('walkLeft', true);
+            this.playSound(this.scene.walkSound);
             playerVelocity.x = -1;
         } else if (this.inputKeys?.right.isDown) {
             this.anims.play('walkRight', true);
+            this.playSound(this.scene.walkSound);
             playerVelocity.x = 1;
         }
         if (this.inputKeys?.up.isDown) {
             this.anims.play('walkUp', true);
+            this.playSound(this.scene.walkSound);
             playerVelocity.y = -1;
         } else if (this.inputKeys?.down.isDown) {
             this.anims.play('walkDown', true);
+            this.playSound(this.scene.walkSound);
             playerVelocity.y = 1;
         }
-        
+
         if (this.inputKeys?.attack.isDown) {
-            switch(this.anims.currentAnim.key) {
-                case 'walkUp': this.anims.play('attackUp', true);
-                    break;
-                case 'walkLeft': this.anims.play('attackLeft', true);
-                    break;
-                case 'walkDown': this.anims.play('attackDown', true);
-                    break;
-                case 'walkRight': this.anims.play('attackRight', true);
-                    break;
+            const direction = this.anims.currentAnim.key;
+            if (direction.match(/Up/)) {
+                this.anims.play('attackUp', true);
+                this.playSound(this.scene.attackSound);
+            } else if (direction.match(/Left/)) {
+                this.anims.play('attackLeft', true);
+                this.playSound(this.scene.attackSound);
+            } else if (direction.match(/Down/)) {
+                this.anims.play('attackDown', true);
+                this.playSound(this.scene.attackSound);
+            } else if (direction.match(/Right/)) {
+                this.anims.play('attackRight', true);
+                this.playSound(this.scene.attackSound);
             }
-            
         }
 
         if (!this.anims.currentAnim.key.match(/attack/)) {
@@ -70,5 +77,9 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
         playerVelocity.normalize();
         playerVelocity.scale(speed);
         this.setVelocity(playerVelocity.x, playerVelocity.y);
+    }
+
+    playSound(sound) {
+        sound.play();
     }
 }
