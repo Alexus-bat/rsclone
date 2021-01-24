@@ -122,7 +122,6 @@ export default class Main extends Phaser.Scene {
                     }, 2000)
                     currentEnemy.health -= 25
                     currentEnemy.tint = 0xff0000;
-                    console.log(currentEnemy.health);
                 }
 
             },
