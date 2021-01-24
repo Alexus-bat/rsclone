@@ -52,23 +52,6 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
             this.playSound(this.scene.walkSound);
             playerVelocity.y = 1;
         }
-        
-        // if (this.inputKeys?.attack.isDown) {
-        //     switch(this.anims.currentAnim.key) {
-        //         case 'walkUp': this.anims.play('attackUp', true);
-        //                     this.playSound(this.scene.attackSound);
-        //             break;
-        //         case 'walkLeft': this.anims.play('attackLeft', true);
-        //                     this.playSound(this.scene.attackSound);
-        //             break;
-        //         case 'walkDown': this.anims.play('attackDown', true);
-        //                     this.playSound(this.scene.attackSound);
-        //             break;
-        //         case 'walkRight': this.anims.play('attackRight', true);
-        //                     this.playSound(this.scene.attackSound);
-        //             break;
-        //     }            
-        // }
 
         if (this.inputKeys?.attack.isDown) {
             const direction = this.anims.currentAnim.key;

@@ -1,7 +1,8 @@
 /* eslint-disable */
 import Player from './Player.ts';
 import Enemy from './Enemy.ts';
-import helper from "../helper/helper.ts";
+import helper from '../helper/helper.ts';
+import { createPlayerAnims } from './PlayerAnims.ts';
 
 export default class Main extends Phaser.Scene {
     private player?: Phaser.Physics.Matter.Sprite | any
@@ -36,61 +37,7 @@ export default class Main extends Phaser.Scene {
         this.walkSound = this.sound.add('sound_walk');
         this.attackSound = this.sound.add('sound_attack');
 
-        this.anims.create({
-            key: 'walkUp',
-            frames: this.anims.generateFrameNumbers('orc', { frames: [193, 194, 195, 196, 197, 198, 199, 200]}),
-            frameRate: 20,
-            repeat: -1
-        }),
-
-        this.anims.create({
-            key: 'walkLeft',
-            frames: this.anims.generateFrameNumbers('orc', { frames: [216, 217, 218, 219, 220, 221, 222, 223, 224]}),
-            frameRate: 20,
-            repeat: -1
-        }),
-
-        this.anims.create({
-            key: 'walkDown',
-            frames: this.anims.generateFrameNumbers('orc', { frames: [241, 242, 243, 244, 245, 246, 247, 248]}),
-            frameRate: 20,
-            repeat: -1
-        }),
-
-        this.anims.create({
-            key: 'walkRight',
-            frames: this.anims.generateFrameNumbers('orc', { frames: [264, 265, 266, 267, 268, 269, 270, 271, 272]}),
-            frameRate: 20,
-            repeat: -1
-        }),
-
-        this.anims.create({
-            key: 'attackUp',
-            frames: this.anims.generateFrameNumbers('orc', { frames: [288, 289, 290, 291, 292, 293]}),
-            frameRate: 20,
-            repeat: 1
-        }),
-
-        this.anims.create({
-            key: 'attackLeft',
-            frames: this.anims.generateFrameNumbers('orc', { frames: [312, 313, 314, 315, 316, 317]}),
-            frameRate: 20,
-            repeat: 1
-        }),
-
-        this.anims.create({
-            key: 'attackDown',
-            frames: this.anims.generateFrameNumbers('orc', { frames: [336, 337, 338, 339, 340, 341]}),
-            frameRate: 20,
-            repeat: 1
-        }),
-
-        this.anims.create({
-            key: 'attackRight',
-            frames: this.anims.generateFrameNumbers('orc', { frames: [360, 361, 362, 363, 364, 365]}),
-            frameRate: 20,
-            repeat: 1
-        })
+        createPlayerAnims(this.anims);
 
         this.player = new Player({scene: this, x: 100, y: 100, texture: 'orc', frame: 'walkRight'});
         for (let i = 0; i < this.enemyAmount; i += 1) {
