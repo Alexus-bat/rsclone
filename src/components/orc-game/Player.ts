@@ -9,13 +9,14 @@ interface DataInterface {
 export default class Player extends Phaser.Physics.Matter.Sprite {
     private inputKeys: any
     private weapon: any
-    private physics: any
+    private health: number
 
     constructor(data: DataInterface) {
         const {scene, x, y, texture, frame} = data;
         super(scene.matter.world, x, y, texture, frame);
         this.scene.add.existing(this);
-
+        this.health = 100;
+        this.attacking = false;
         const {Body, Bodies} = Phaser.Physics.Matter.Matter;
         const playerCollider = Bodies.circle(this.x, this.y, 12, {isSensor: false, label: 'playerCollider'});
         const playerSensor = Bodies.circle(this.x, this.y, 24, {isSensor: true, label: 'playerSensor'});
@@ -40,9 +41,11 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
     }
 
     update() {
+        this.body.isSleeping = true;
         const speed = 5;
         const playerVelocity = new Phaser.Math.Vector2();
         if (this.inputKeys?.left.isDown) {
+            this.body.isSleeping = false;
             this.anims.play('walkLeft', true);
             this.playSound(this.scene.walkSound);
             playerVelocity.x = -1;
@@ -50,6 +53,7 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
             this.weapon.y = (this.y + 10);
             this.weapon.angle = -140;
         } else if (this.inputKeys?.right.isDown) {
+            this.body.isSleeping = false;
             this.anims.play('walkRight', true);
             this.playSound(this.scene.walkSound);
             playerVelocity.x = 1;
@@ -58,6 +62,7 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
             this.weapon.angle = 0;
         }
         if (this.inputKeys?.up.isDown) {
+            this.body.isSleeping = false;
             this.anims.play('walkUp', true);
             this.playSound(this.scene.walkSound);
             playerVelocity.y = -1;
@@ -65,6 +70,7 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
             this.weapon.y = (this.y + 10);
             this.weapon.angle = 0;
         } else if (this.inputKeys?.down.isDown) {
+            this.body.isSleeping = false;
             this.anims.play('walkDown', true);
             this.playSound(this.scene.walkSound);
             playerVelocity.y = 1;

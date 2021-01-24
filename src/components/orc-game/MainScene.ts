@@ -13,7 +13,7 @@ export default class Main extends Phaser.Scene {
 
     constructor() {
         super('MainScene');
-        this.enemyAmount = 5;
+        this.enemyAmount = 3;
         this.enemies = [];
     }
 
@@ -44,6 +44,7 @@ export default class Main extends Phaser.Scene {
         createPlayerAnims(this.anims);
 
         this.player = new Player({scene: this, x: 100, y: 100, texture: 'orc', frame: 'walkRight'});
+        console.log(this.player.body);
         for (let i = 0; i < this.enemyAmount; i += 1) {
             this.enemies.push(
                 new Enemy({
@@ -63,8 +64,19 @@ export default class Main extends Phaser.Scene {
                 const currentEnemy = this.enemies.find((it: any) => it.body.id === enemyId);
                 currentEnemy.switchMode();
                 currentEnemy.player = this.player;
-                // currentEnemy.x = this.player.x;
-                // currentEnemy.y = this.player.y;
+                setTimeout(() => {
+                    currentEnemy.player.health -= 5;
+                    currentEnemy.player.clearTint();
+                }, 2000)
+                currentEnemy.player.tint = 0xff0000;
+                if (currentEnemy.player.inputKeys.attack.isDown) {
+                    setTimeout(() => {
+                        currentEnemy.clearTint();
+                    }, 2000)
+                    currentEnemy.health -= 25
+                    currentEnemy.tint = 0xff0000;
+                }
+
             },
         });
         // this.player.setScale(0.5)
@@ -83,5 +95,8 @@ export default class Main extends Phaser.Scene {
 
     update() {
         this.player?.update();
+        if (this.player.health === 0) {
+            console.log('game over');
+        }
     }
 }
