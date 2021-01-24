@@ -1,4 +1,3 @@
-/* eslint-disable */
 import Player from './Player.ts';
 import Enemy from './Enemy.ts';
 import helper from '../helper/helper.ts';
@@ -6,7 +5,7 @@ import { createPlayerAnims } from './PlayerAnims.ts';
 
 export default class Main extends Phaser.Scene {
     private player?: Phaser.Physics.Matter.Sprite | any
-    private enemy?: Phaser.Physics.Matter.Sprite | any
+    private enemy?: Phaser.Physics.Matter.Sprite | any  
     private enemyAmount: number;
     attackSound?: Phaser.Sound.BaseSound;
     walkSound?: Phaser.Sound.BaseSound;
@@ -15,6 +14,11 @@ export default class Main extends Phaser.Scene {
     constructor() {
         super('MainScene');
         this.enemyAmount = 5;
+        this.enemies = [];
+    }
+
+    handler() {
+        console.log('ghb')
     }
 
     preload() {
@@ -41,17 +45,28 @@ export default class Main extends Phaser.Scene {
 
         this.player = new Player({scene: this, x: 100, y: 100, texture: 'orc', frame: 'walkRight'});
         for (let i = 0; i < this.enemyAmount; i += 1) {
-          this.enemy = new Enemy({scene: this, x: helper.getRandomNumber(100, 412), y: helper.getRandomNumber(0, 412), texture: 'enemy-troll', frame: 'troll_idle_1'});
-          this.enemy?.update()
-          this.timedEvent = this.time.addEvent({
-            delay: helper.getRandomNumber(500, 1000),
-            callback: this.enemy.move,
-            callbackScope: this.enemy,
-            loop: true
-          });
-
+            this.enemies.push(
+                new Enemy({
+                    scene: this,
+                    x: helper.getRandomNumber(100, 412),
+                    y: helper.getRandomNumber(0, 412),
+                    texture: 'enemy-troll',
+                    frame: 'troll_idle_1',
+                }));
         }
 
+        this.matterCollision.addOnCollideStart({
+            objectA: this.player,
+            objectB: this.enemies,
+            callback: (obj: any) => {
+                const enemyId = obj.gameObjectB.body.id;
+                const currentEnemy = this.enemies.find((it: any) => it.body.id === enemyId);
+                currentEnemy.switchMode();
+                currentEnemy.player = this.player;
+                // currentEnemy.x = this.player.x;
+                // currentEnemy.y = this.player.y;
+            },
+        });
         // this.player.setScale(0.5)
         this.cameras.main.startFollow(this.player);
         // const player2 = new Player({scene: this, x: 200, y: 200, texture: 'orc', frame: 'walkDown'});
@@ -65,7 +80,8 @@ export default class Main extends Phaser.Scene {
         })
     }
 
-   update() {
-       this.player?.update();
-   }
+
+    update() {
+        this.player?.update();
+    }
 }
