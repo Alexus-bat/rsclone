@@ -5,8 +5,9 @@ import { createPlayerAnims } from './PlayerAnims.ts';
 
 export default class Main extends Phaser.Scene {
     private player?: Phaser.Physics.Matter.Sprite | any
-    private enemy?: Phaser.Physics.Matter.Sprite | any  
+    private enemy?: Phaser.Physics.Matter.Sprite | any
     private enemyAmount: number;
+    private enemies: any;
     attackSound?: Phaser.Sound.BaseSound;
     walkSound?: Phaser.Sound.BaseSound;
     timedEvent?: Phaser.Time.TimerEvent;
@@ -62,17 +63,21 @@ export default class Main extends Phaser.Scene {
             callback: (obj: any) => {
                 const enemyId = obj.gameObjectB.body.id;
                 const currentEnemy = this.enemies.find((it: any) => it.body.id === enemyId);
-                currentEnemy.switchMode();
-                currentEnemy.player = this.player;
-                setTimeout(() => {
-                    currentEnemy.player.health -= 5;
-                    currentEnemy.player.clearTint();
-                }, 2000)
-                currentEnemy.player.tint = 0xff0000;
+                if (!currentEnemy.isDead) {
+                    currentEnemy.switchMode();
+                    currentEnemy.player = this.player;
+                    setTimeout(() => {
+                        currentEnemy.player.health -= 5;
+                        currentEnemy.player.clearTint();
+                    }, 2000)
+                    currentEnemy.player.tint = 0xff0000;
+                }
                 if (currentEnemy.player.inputKeys.attack.isDown) {
                     setTimeout(() => {
                         currentEnemy.clearTint();
                     }, 2000)
+                    currentEnemy.wasAttacked = true;
+
                     currentEnemy.health -= 25
                     currentEnemy.tint = 0xff0000;
                 }
