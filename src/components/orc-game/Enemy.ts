@@ -26,15 +26,20 @@ const randomDirection = (exclude: Direction) => {
 }
 
 export default class Enemy extends Phaser.Physics.Matter.Sprite {
-    private direction: Direction.RIGHT;
+    private direction: any;
     private moveEvent: Phaser.Time.TimerEvent;
     private isAttacking: boolean;
+    private wasAttacked: boolean;
+    private isDead: boolean;
 
     constructor(data: DataInterface) {
         const {scene, x, y, texture, frame} = data;
         super(scene.matter.world, x, y, texture, frame);
         this.scene.add.existing(this);
         this.isAttacking = false;
+        this.isDead = false;
+        this.wasAttacked = false;
+        this.direction = Direction.RIGHT;
         this.health = 100;
         this.player = null;
 
@@ -61,7 +66,10 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
     static preload(scene: Phaser.Scene) {
         scene.load.atlas('enemy-troll', '../assets/img/enemy-troll.png', `../../assets/img/enemy-troll_atlas.json`);
         scene.load.atlas('enemy-troll-attack', '../assets/img/enemy-troll-attack.png', `../../assets/img/enemy-troll-attack_atlas.json`);
+        scene.load.atlas('enemy-troll-dead', '../assets/img/enemy-troll-dead.png', `../../assets/img/enemy-troll-dead_atlas.json`);
+
         scene.load.animation('enemy-troll-attack_anim', '../assets/img/enemy-troll-attack_anim.json');
+        scene.load.animation('enemy-troll-dead_anim', '../assets/img/enemy-troll-dead_anim.json');
         scene.load.animation('enemy-troll_anim', '../assets/img/enemy-troll_anim.json');
     }
 
@@ -81,11 +89,8 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
 
     preUpdate(time: number, delta: number) {
         super.preUpdate(time, delta);
-        if (this.health === 0) {
-            this.x = 1000;
-            this.y = 1000;
-        }
-        if (!this.isAttacking) {
+
+        if (!this.isAttacking && !this.isDead) {
             if (Math.abs(this.velocity.x) > 0.1 || Math.abs(this.velocity.y) > 0.1) {
                 this.anims.play('enemy-troll_walk', true);
             } else {
@@ -108,6 +113,15 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
                     this.resetFlip();
                     break
             }
+        } else if (this.wasAttacked && this.isAttacking && !this.isDead) {
+            const dx = this.x - this.player.x;
+            const dy = this.y - this.player.y;
+            this.setVelocity(dx + 15, dy + 15);
+            this.wasAttacked = !this.wasAttacked;
+        } else if (this.health <= 0) {
+            this.body.isSleeping = true;
+            this.isDead = true;
+            this.anims.play('enemy-troll_dead', true);
         } else {
             const dx = this.player.x - this.x;
             const dy = this.player.y - this.y;
@@ -119,6 +133,7 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
                 this.isAttacking = false;
             }
         }
+
     }
 
     switchMode() {
