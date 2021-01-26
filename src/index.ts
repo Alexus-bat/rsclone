@@ -1,7 +1,6 @@
 import './sass/style.scss';
+import {register} from './components/authorization/script.ts';
+import {signIn} from './components/authorization/script.ts';
 
-console.log('Hello world')
-
-import test from './components/test/script.ts';
-
-test();
+register();
+signIn();
