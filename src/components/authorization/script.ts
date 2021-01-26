@@ -6,11 +6,11 @@ export function register(): void {
     const registerBtn = document.querySelector('#register');
     const succesWindow = document.querySelector('.succes-window');
 
-    let login = document.querySelector('.login');
-    let password = document.querySelector('.password');
+    const login = document.querySelector('.login');
+    const password = document.querySelector('.password');
 
-    let log: string = '';
-    let pass: string = '';
+    let log: string;
+    let pass: string;
 
     overlay?.addEventListener('click', () => {
         registerWindow?.classList.add('hidden-item');
@@ -66,13 +66,13 @@ export function signIn(): void {
     const overlay = document.querySelector('.overlay');
     const succesWindow = document.querySelector('.succes-window');
     const signinBTN = document.querySelector('#sign-in');
-    let login = document.querySelector('.login-sign-in');
-    let password = document.querySelector('.password-sign-in');
+    const login = document.querySelector('.login-sign-in');
+    const password = document.querySelector('.password-sign-in');
     const invalidAuth = document.querySelector('.invalid-auth');
 
 
-    let log:string = '';
-    let pass:string = '';
+    let log:string ;
+    let pass:string;
 
     overlay?.addEventListener('click', () => {
         registerWindow?.classList.add('hidden-item');
