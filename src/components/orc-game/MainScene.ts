@@ -1,7 +1,7 @@
 import Player from './Player.ts';
 import Enemy from './Enemy.ts';
 import helper from '../helper/helper.ts';
-import { createPlayerAnims } from './PlayerAnims.ts';
+import {createPlayerAnims} from './PlayerAnims.ts';
 
 export default class Main extends Phaser.Scene {
     private player?: Phaser.Physics.Matter.Sprite | any
@@ -14,7 +14,7 @@ export default class Main extends Phaser.Scene {
 
     constructor() {
         super('MainScene');
-        this.enemyAmount = 3;
+        this.enemyAmount = 5;
         this.enemies = [];
     }
 
@@ -44,7 +44,12 @@ export default class Main extends Phaser.Scene {
 
         createPlayerAnims(this.anims);
 
-        this.player = new Player({scene: this, x: 100, y: 100, texture: 'orc', frame: 'walkRight'});
+        this.player = new Player({
+            scene: this,
+            x: 100, y: 100,
+            texture: 'orc',
+            frame: 'walkRight'
+        });
         console.log(this.player.body);
         for (let i = 0; i < this.enemyAmount; i += 1) {
             this.enemies.push(
@@ -63,23 +68,13 @@ export default class Main extends Phaser.Scene {
             callback: (obj: any) => {
                 const enemyId = obj.gameObjectB.body.id;
                 const currentEnemy = this.enemies.find((it: any) => it.body.id === enemyId);
-                if (!currentEnemy.isDead) {
-                    currentEnemy.switchMode();
-                    currentEnemy.player = this.player;
-                    setTimeout(() => {
-                        currentEnemy.player.health -= 5;
-                        currentEnemy.player.clearTint();
-                    }, 2000)
-                    currentEnemy.player.tint = 0xff0000;
-                }
-                if (currentEnemy.player.inputKeys.attack.isDown) {
-                    setTimeout(() => {
-                        currentEnemy.clearTint();
-                    }, 2000)
-                    currentEnemy.wasAttacked = true;
 
-                    currentEnemy.health -= 25
-                    currentEnemy.tint = 0xff0000;
+                if (!currentEnemy.isDead) {
+                    this.enemyAttackHandler(currentEnemy, 2.5);
+                }
+
+                if (currentEnemy.player.inputKeys.attack.isDown) {
+                    this.playerAttackHandler(currentEnemy, 25);
                 }
 
             },
@@ -97,10 +92,29 @@ export default class Main extends Phaser.Scene {
         })
     }
 
+    enemyAttackHandler(enemy: any,health: number) {
+        enemy.switchMode();
+        enemy.player = this.player;
+        setTimeout(() => {
+            enemy.player.health -= health;
+            enemy.player.clearTint();
+        }, 2000)
+        enemy.player.tint = 0xff0000;
+    }
+
+    playerAttackHandler (player: any, health: number) {
+        setTimeout(() => {
+            player.clearTint();
+        }, 2000)
+        player.wasAttacked = true;
+        player.health -= health
+        player.tint = 0xff0000;
+    }
+
 
     update() {
         this.player?.update();
-        if (this.player.health === 0) {
+        if (this.player.health <= 0) {
             console.log('game over');
         }
     }
