@@ -155,6 +155,31 @@ const config = {
             name: '[name].[ext]'
           }
         }]
+      },
+      {
+        test: /\.json/i,
+        type: "javascript/auto",
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              outputPath: './assets/json',
+              name: "[name].[ext]",
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(mp3|wav)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: './assets/sounds',
+              name: '[name].[ext]',
+            }
+          }
+        ]
       }
     ]
   },
@@ -170,7 +195,7 @@ const config = {
     }),
     new CopyWebpackPlugin({
       patterns: [
-        { from: path.resolve(__dirname, './src/assets/img'), to: path.resolve(__dirname, 'dist/assets/img') },
+        { from: path.resolve(__dirname, './src/assets/img'), to: path.resolve(__dirname, 'dist/assets/img') }
       ],
     }),
   ]

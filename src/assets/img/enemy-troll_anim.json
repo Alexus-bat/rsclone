@@ -1,0 +1,52 @@
+{
+    "anims": [
+        {
+            "key": "enemy-troll_idle",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "enemy-troll",
+                    "frame": "troll_idle_1"
+                },
+                {
+                    "key": "enemy-troll",
+                    "frame": "troll_idle_2"
+                },
+                {
+                    "key": "enemy-troll",
+                    "frame": "troll_idle_3"
+                },
+                {
+                    "key": "enemy-troll",
+                    "frame": "troll_idle_4"
+                }
+            ]
+        },
+        {
+            "key": "enemy-troll_walk",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "enemy-troll",
+                    "frame": "troll_walk_1"
+                },
+                {
+                    "key": "enemy-troll",
+                    "frame": "troll_walk_2"
+                },
+                {
+                    "key": "enemy-troll",
+                    "frame": "troll_walk_3"
+                },
+                {
+                    "key": "enemy-troll",
+                    "frame": "troll_walk_4"
+                }
+            ]
+        }
+    ]
+}

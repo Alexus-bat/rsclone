@@ -4,3 +4,7 @@ import {signIn} from './components/authorization/script.ts';
 
 register();
 signIn();
+
+import start from './components/orc-game/orc-game.ts';
+
+start();
