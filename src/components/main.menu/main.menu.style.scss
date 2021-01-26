@@ -1,0 +1,176 @@
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: grey;
+    
+    &__name-game, &__btn-play {
+        color: yellow;
+        font-size: 40px;
+        text-shadow: 3px 3px red;
+    }
+
+    &__authorization {
+        display: flex;
+        width: 16%;
+        justify-content: space-between;
+
+        &__sign-in, &__register {
+            border: 0;
+            outline: 0;
+            padding: 20px;
+            border-radius: 20px;
+            background-color: #4169E1;
+            color: yellow;
+            font-size: 40px;
+            text-shadow: 3px 3px red;
+
+            &:hover {
+                cursor: pointer;
+                box-shadow: 2px 2px 2px yellow,
+                        -2px -2px 2px yellow,
+                        -2px 2px 2px yellow,
+                        2px -2px 2px yellow;
+            }
+        }
+
+    }
+
+    &__btn-play {
+        border: 0;
+        outline: 0;
+        padding: 10px;
+        border-radius: 20px;
+        background-color: #4169E1;
+        box-shadow: inset 3px 3px 3px #4682B4,
+                    inset -3px -3px 3px #4682B4,
+                    inset -3px 3px 3px #4682B4,
+                    inset 3px -3px 3px #4682B4;
+
+        &:hover {
+            cursor: pointer;
+            box-shadow: 2px 2px 2px yellow,
+                    -2px -2px 2px yellow,
+                    -2px 2px 2px yellow,
+                    2px -2px 2px yellow;
+        }
+    }
+}
+
+.main {
+    position: fixed;
+    top: 100px;
+    width: 100%;
+    height: calc(100% - 150px);
+
+    &__register-window h1, &__sign-in-window h1{
+        color: yellow;
+        font-size: 60px;
+        text-shadow: 3px 3px red;
+        z-index: 1000;
+    }
+
+    &__register-window, &__sign-in-window{
+        border-radius: 50px;
+        width: 500px;
+        padding: 40px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #4169e1;
+        text-align: center;
+        z-index: 1000;
+    }
+
+    &__register-window input[type = "text"], &__register-window input[type = "password"], &__sign-in-window input[type = "text"], &__sign-in-window input[type = "password"] {
+        border: 0;
+        background: none;
+        display: block;
+        margin: 20px auto;
+        text-align: center;
+        letter-spacing: 3px;
+        border: 2px solid black;
+        padding: 14px 10px;
+        width: 300px;
+        outline: none;
+        color: white;
+        border-radius: 24px;
+        transition: 0.25s;
+        z-index: 1000;
+
+    }
+
+    &__register-window input[type = "text"]:focus, &__register-window input[type = "password"]:focus,  &__sign-in-window input[type = "text"]:focus, &__sign-in-window input[type = "password"]:focus {
+        width: 400px;
+        border-color: yellow;
+    }
+
+    &__register-window input[type = "submit"], &__sign-in-window input[type = "submit"] {
+        border: 0;
+        background: none;
+        display: block;
+        margin: 20px auto;
+        text-align: center;
+        border: 2px solid black;
+        padding: 14px 10px;
+        width: 200px;
+        outline: none;
+        color: yellow;
+        font-size: 40px;
+        text-shadow: 3px 3px red;
+        border-radius: 24px;
+        transition: 0.25s;
+        z-index: 1000;
+    }
+
+    &__register-window input[type = "submit"]:hover, &__sign-in-window input[type = "submit"]:hover {
+        width: 300px;
+        border-color: yellow;
+    }
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    background-color: grey;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    a {
+        img {
+            width: 60px;
+        }
+    }
+
+    .author {
+        a {
+            margin-left: 40px;
+            color: yellow;
+            text-shadow: 3px 3px red;
+            text-decoration: none;
+        }
+    }
+}
+
+.hidden-item{
+    display: none;
+}
+
+body{
+    height: 100vh;
+}
+
+.overlay{
+    width: 100%;
+    height: calc(100% + 150px);
+    z-index: 100;
+    background-color: rgb(128, 128, 128, 0.2);
+}
