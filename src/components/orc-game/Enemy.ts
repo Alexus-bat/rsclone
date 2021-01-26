@@ -77,42 +77,36 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
         return this.body.velocity
     }
 
-    create() {
-        this.anims.create({
-            key: 'dragon-fly',
-            frames: this.anims.generateFrameNumbers('dragon', { start: 0, end: 5 }),
-            frameRate: 10,
-            repeat: -1
-        });
+    walk(direction) {
+        if (Math.abs(this.velocity.x) > 0.1 || Math.abs(this.velocity.y) > 0.1) {
+            this.anims.play('enemy-troll_walk', true);
+        } else {
+            this.anims.play('enemy-troll_idle', true);
+        }
+        this.speed = helper.getRandomNumber(1, 5);
+        switch (this.direction) {
+            case Direction.UP:
+                this.setVelocity(0, -(this.speed));
+                break
+            case Direction.Down:
+                this.setVelocity(0, this.speed);
+                break
+            case Direction.LEFT:
+                this.setVelocity(-(this.speed), 0);
+                this.setFlip(true, false);
+                break
+            case Direction.RIGHT:
+                this.setVelocity(this.speed, 0)
+                this.resetFlip();
+                break
+        }
     }
-
 
     preUpdate(time: number, delta: number) {
         super.preUpdate(time, delta);
 
         if (!this.isAttacking && !this.isDead) {
-            if (Math.abs(this.velocity.x) > 0.1 || Math.abs(this.velocity.y) > 0.1) {
-                this.anims.play('enemy-troll_walk', true);
-            } else {
-                this.anims.play('enemy-troll_idle', true);
-            }
-            this.speed = helper.getRandomNumber(1, 5);
-            switch (this.direction) {
-                case Direction.UP:
-                    this.setVelocity(0, -(this.speed));
-                    break
-                case Direction.Down:
-                    this.setVelocity(0, this.speed);
-                    break
-                case Direction.LEFT:
-                    this.setVelocity(-(this.speed), 0);
-                    this.setFlip(true, false);
-                    break
-                case Direction.RIGHT:
-                    this.setVelocity(this.speed, 0)
-                    this.resetFlip();
-                    break
-            }
+            this.walk(this.direction);
         } else if (this.wasAttacked && this.isAttacking && !this.isDead) {
             const dx = this.x - this.player.x;
             const dy = this.y - this.player.y;
