@@ -4,7 +4,7 @@
             "key": "attack-sword",
             "type": "frames",
             "repeat": -1,
-            "frameRate": 12,
+            "frameRate": 20,
             "frames": [
                 {
                     "key": "sword_anim",

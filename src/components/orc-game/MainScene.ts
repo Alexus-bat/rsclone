@@ -2,6 +2,8 @@ import Player from './Player.ts';
 import Enemy from './Enemy.ts';
 import helper from '../helper/helper.ts';
 import {createPlayerAnims} from './PlayerAnims.ts';
+import Panel from "../panel/panel.ts";
+
 
 export default class Main extends Phaser.Scene {
     private player?: Phaser.Physics.Matter.Sprite | any
@@ -14,12 +16,8 @@ export default class Main extends Phaser.Scene {
 
     constructor() {
         super('MainScene');
-        this.enemyAmount = 5;
+        this.enemyAmount = 15;
         this.enemies = [];
-    }
-
-    handler() {
-        console.log('ghb')
     }
 
     preload() {
@@ -32,13 +30,13 @@ export default class Main extends Phaser.Scene {
     }
 
     create() {
+        this.panel = new Panel('panel');
         const map = this.make.tilemap({key: 'map'});
         const tiles = map.addTilesetImage('RPGNature', 'tiles', 32, 32, 0, 0);
         const layer1 = map.createLayer('Tile Layer 1', tiles, 0, 0);
         const layer2 = map.createLayer('Tile Layer 2', tiles, 0, 0);
         layer1.setCollisionByProperty({collides: true});
         this.matter.world.convertTilemapLayer(layer1);
-
         this.walkSound = this.sound.add('sound_walk');
         this.attackSound = this.sound.add('sound_attack');
 
@@ -50,7 +48,6 @@ export default class Main extends Phaser.Scene {
             texture: 'orc',
             frame: 'walkRight'
         });
-        console.log(this.player.body);
         for (let i = 0; i < this.enemyAmount; i += 1) {
             this.enemies.push(
                 new Enemy({
@@ -62,7 +59,7 @@ export default class Main extends Phaser.Scene {
                 }));
         }
 
-        this.matterCollision.addOnCollideStart({
+        this.matterCollision.addOnCollideActive({
             objectA: this.player,
             objectB: this.enemies,
             callback: (obj: any) => {
@@ -70,7 +67,7 @@ export default class Main extends Phaser.Scene {
                 const currentEnemy = this.enemies.find((it: any) => it.body.id === enemyId);
 
                 if (!currentEnemy.isDead) {
-                    this.enemyAttackHandler(currentEnemy, 2.5);
+                    this.enemyAttackHandler(currentEnemy, 0.2);
                 }
 
                 if (currentEnemy.player.inputKeys.attack.isDown) {
@@ -79,9 +76,18 @@ export default class Main extends Phaser.Scene {
 
             },
         });
-        // this.player.setScale(0.5)
+
+        this.matterCollision.addOnCollideStart({
+            objectA: this.enemies,
+
+            callback: (obj: any) => {
+                const enemyId = obj.gameObjectA.body.id;
+                const currentEnemy = this.enemies.find((it: any) => it.body.id === enemyId);
+                currentEnemy.changeDirection();
+            },
+        })
+
         this.cameras.main.startFollow(this.player);
-        // const player2 = new Player({scene: this, x: 200, y: 200, texture: 'orc', frame: 'walkDown'});
 
         this.player.inputKeys = this.input.keyboard.addKeys({
             up: Phaser.Input.Keyboard.KeyCodes.W,
@@ -92,17 +98,20 @@ export default class Main extends Phaser.Scene {
         })
     }
 
-    enemyAttackHandler(enemy: any,health: number) {
+    enemyAttackHandler(enemy: any, health: number) {
         enemy.switchMode();
         enemy.player = this.player;
         setTimeout(() => {
             enemy.player.health -= health;
             enemy.player.clearTint();
-        }, 2000)
+        }, 500)
+        if (enemy.player.health <= 0) {
+            enemy.player.health = 0;
+        }
         enemy.player.tint = 0xff0000;
     }
 
-    playerAttackHandler (player: any, health: number) {
+    playerAttackHandler(player: any, health: number) {
         setTimeout(() => {
             player.clearTint();
         }, 2000)
@@ -114,6 +123,7 @@ export default class Main extends Phaser.Scene {
 
     update() {
         this.player?.update();
+        this.panel.updatePlayerHealth(this.player);
         if (this.player.health <= 0) {
             console.log('game over');
         }
