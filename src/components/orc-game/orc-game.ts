@@ -1,9 +1,6 @@
 import PhaserMatterCollisionPlugin from 'phaser-matter-collision-plugin';
 import MainScene from './MainScene.ts';
 
-// const windowWidth = window.innerWidth;
-// const windowHeight = window.innerHeight;
-
 const config = {
     width: 512,
     height: 512,
@@ -17,7 +14,7 @@ const config = {
     physics: {
         default: 'matter',
         matter: {
-            debug: false,
+            debug: true,
             gravity: {y: 0},
         }
     },
