@@ -3,12 +3,15 @@ import Enemy from './Enemy.ts';
 import helper from '../helper/helper.ts';
 import {createPlayerAnims} from './PlayerAnims.ts';
 import Panel from "../panel/panel.ts";
+import Health from "./Health.ts";
 
 
 export default class Main extends Phaser.Scene {
     private player?: Phaser.Physics.Matter.Sprite | any
     private enemy?: Phaser.Physics.Matter.Sprite | any
+    private healthUnit?: Phaser.Physics.Matter.Sprite | any
     private enemyAmount: number;
+    private maxEnemyAmount: number;
     private enemies: any;
     private panel: any;
     attackSound?: Phaser.Sound.BaseSound;
@@ -17,13 +20,15 @@ export default class Main extends Phaser.Scene {
 
     constructor() {
         super('MainScene');
-        this.enemyAmount = 5;
+        this.enemyAmount = 2;
+        this.maxEnemyAmount = 50;
         this.enemies = [];
     }
 
     preload() {
         Player.preload(this);
         Enemy.preload(this);
+        Health.preload(this);
         this.load.image('tiles', '../assets/img/RPGNature.png');
         this.load.tilemapTiledJSON('map', '../assets/img/map.json');
         this.load.audio('sound_walk', ['../assets/img/walk.wav']);
@@ -55,7 +60,30 @@ export default class Main extends Phaser.Scene {
             callback: (obj: any) => {
                 const enemyId = obj.gameObjectA.body.id;
                 const currentEnemy = this.enemies.find((it: any) => it.body.id === enemyId);
-                if (currentEnemy) currentEnemy.changeDirection();
+                if (currentEnemy)
+                    currentEnemy.changeDirection();
+            },
+        })
+
+        this.matterCollision.addOnCollideStart({
+            objectA: this.healthUnit,
+            callback: (obj: any) => {
+                if (this.healthUnit !== undefined)
+                    this.healthUnit.changeDirection();
+            },
+        })
+
+        this.matterCollision.addOnCollideStart({
+            objectA: this.player,
+            objectB: this.healthUnit,
+            callback: (obj) => {
+                if (obj.gameObjectB !== 0 && obj.gameObjectB.texture !== null && obj.gameObjectB.texture.key === 'health') {
+                        this.player.health += this.healthUnit.healthValue;
+                        if (this.player.health > 100) {
+                            this.player.health = 100;
+                        }
+                        this.healthUnit.destroy();
+                }
             },
         })
     }
@@ -75,10 +103,12 @@ export default class Main extends Phaser.Scene {
 
         this.player = new Player({
             scene: this,
-            x: 100, y: 100,
+            x: 100,
+            y: 100,
             texture: 'orc',
             frame: 'walkRight'
         });
+
         for (let i = 0; i < this.enemyAmount; i += 1) {
             this.enemies.push(
                 new Enemy({
@@ -89,18 +119,9 @@ export default class Main extends Phaser.Scene {
                     frame: 'troll_idle_1',
                 }));
         }
+        this.createHealth(40000, 15000);
 
-        setInterval(() => {
-            this.enemies.push(
-                new Enemy({
-                    scene: this,
-                    x: helper.getRandomNumber(100, 412),
-                    y: helper.getRandomNumber(0, 412),
-                    texture: 'enemy-troll',
-                    frame: 'troll_idle_1',
-                }));
-            this.collisionHandler();
-        }, 5000);
+        this.createEnemy('enemy-troll', 'troll_idle_1', 5000);
 
         this.collisionHandler();
 
@@ -113,6 +134,40 @@ export default class Main extends Phaser.Scene {
             right: Phaser.Input.Keyboard.KeyCodes.D,
             attack: Phaser.Input.Keyboard.KeyCodes.SPACE
         })
+    }
+
+    createEnemy(texture: string, frame: string, delayOfCreate) {
+        setInterval(() => {
+            if (this.enemies.length <= this.maxEnemyAmount) {
+                this.enemies.push(
+                    new Enemy({
+                        scene: this,
+                        x: helper.getRandomNumber(100, 412),
+                        y: helper.getRandomNumber(0, 412),
+                        texture: texture,
+                        frame: frame,
+                    }));
+                this.collisionHandler();
+            } else {
+                return
+            }
+        }, delayOfCreate);
+    }
+
+    createHealth(delay: number, timeOfLife: number): void {
+         setInterval(() => {
+                this.healthUnit = new Health({
+                    scene: this,
+                    x: helper.getRandomNumber(100, 412),
+                    y: helper.getRandomNumber(100, 412),
+                    label: 'health',
+                    texture: 'health',
+                    frame: 'health_idle_1'
+                });
+                this.collisionHandler();
+                setTimeout(() => this.healthUnit.destroy(), timeOfLife)
+            }
+        , delay);
     }
 
     enemyAttackHandler(enemy: any, health: number) {
@@ -141,12 +196,9 @@ export default class Main extends Phaser.Scene {
         this.player?.update();
         this.panel.updatePlayerHealth(this.player);
         this.enemies.forEach((it, index) => {
-            if(it.isDead) {
+            if (it.isDead) {
                 this.enemies.splice(index, 1)
             }
-         })
-        if (this.player.health <= 0) {
-            console.log('game over');
-        }
+        })
     }
 }
