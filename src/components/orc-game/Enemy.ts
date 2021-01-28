@@ -130,7 +130,12 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
     die(): void {
         this.body.isSleeping = true;
         this.isDead = true;
+        this.body.render = false;
+        this.body.opacity = false;
         this.anims.play('enemy-troll_dead', true);
+        setTimeout(() => {
+            this.destroy();
+        }, 5000)
     }
 
     preUpdate(time: number, delta: number): void {

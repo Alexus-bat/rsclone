@@ -10,13 +10,14 @@ export default class Main extends Phaser.Scene {
     private enemy?: Phaser.Physics.Matter.Sprite | any
     private enemyAmount: number;
     private enemies: any;
+    private panel: any;
     attackSound?: Phaser.Sound.BaseSound;
     walkSound?: Phaser.Sound.BaseSound;
     timedEvent?: Phaser.Time.TimerEvent;
 
     constructor() {
         super('MainScene');
-        this.enemyAmount = 15;
+        this.enemyAmount = 5;
         this.enemies = [];
     }
 
@@ -27,6 +28,36 @@ export default class Main extends Phaser.Scene {
         this.load.tilemapTiledJSON('map', '../assets/img/map.json');
         this.load.audio('sound_walk', ['../assets/img/walk.wav']);
         this.load.audio('sound_attack', ['../assets/img/attack.wav']);
+    }
+
+    collisionHandler() {
+        this.matterCollision.addOnCollideActive({
+            objectA: this.player,
+            objectB: this.enemies,
+            callback: (obj: any) => {
+                const enemyId = obj.gameObjectB.body.id;
+                const currentEnemy = this.enemies.find((it: any) => it.body.id === enemyId);
+                if (currentEnemy) {
+                    if (!currentEnemy.isDead) {
+                        this.enemyAttackHandler(currentEnemy, 0.2);
+                    }
+
+                    if (currentEnemy.player.inputKeys.attack.isDown && !currentEnemy.player.isDead) {
+                        this.playerAttackHandler(currentEnemy, 5);
+                    }
+                }
+            },
+        });
+
+        this.matterCollision.addOnCollideStart({
+            objectA: this.enemies,
+
+            callback: (obj: any) => {
+                const enemyId = obj.gameObjectA.body.id;
+                const currentEnemy = this.enemies.find((it: any) => it.body.id === enemyId);
+                if (currentEnemy) currentEnemy.changeDirection();
+            },
+        })
     }
 
     create() {
@@ -53,39 +84,25 @@ export default class Main extends Phaser.Scene {
                 new Enemy({
                     scene: this,
                     x: helper.getRandomNumber(100, 412),
-                    y: helper.getRandomNumber(0, 412),
+                    y: helper.getRandomNumber(100, 412),
                     texture: 'enemy-troll',
                     frame: 'troll_idle_1',
                 }));
         }
 
-        this.matterCollision.addOnCollideActive({
-            objectA: this.player,
-            objectB: this.enemies,
-            callback: (obj: any) => {
-                const enemyId = obj.gameObjectB.body.id;
-                const currentEnemy = this.enemies.find((it: any) => it.body.id === enemyId);
+        setInterval(() => {
+            this.enemies.push(
+                new Enemy({
+                    scene: this,
+                    x: helper.getRandomNumber(100, 412),
+                    y: helper.getRandomNumber(0, 412),
+                    texture: 'enemy-troll',
+                    frame: 'troll_idle_1',
+                }));
+            this.collisionHandler();
+        }, 5000);
 
-                if (!currentEnemy.isDead) {
-                    this.enemyAttackHandler(currentEnemy, 0.2);
-                }
-
-                if (currentEnemy.player.inputKeys.attack.isDown) {
-                    this.playerAttackHandler(currentEnemy, 25);
-                }
-
-            },
-        });
-
-        this.matterCollision.addOnCollideStart({
-            objectA: this.enemies,
-
-            callback: (obj: any) => {
-                const enemyId = obj.gameObjectA.body.id;
-                const currentEnemy = this.enemies.find((it: any) => it.body.id === enemyId);
-                currentEnemy.changeDirection();
-            },
-        })
+        this.collisionHandler();
 
         this.cameras.main.startFollow(this.player);
 
@@ -105,8 +122,8 @@ export default class Main extends Phaser.Scene {
             enemy.player.health -= health;
             enemy.player.clearTint();
         }, 500)
-        if (enemy.player.health <= 0) {
-            enemy.player.health = 0;
+        if (this.player.health <= 0) {
+            this.player.health = 0;
         }
         enemy.player.tint = 0xff0000;
     }
@@ -120,10 +137,14 @@ export default class Main extends Phaser.Scene {
         player.tint = 0xff0000;
     }
 
-
     update() {
         this.player?.update();
         this.panel.updatePlayerHealth(this.player);
+        this.enemies.forEach((it, index) => {
+            if(it.isDead) {
+                this.enemies.splice(index, 1)
+            }
+         })
         if (this.player.health <= 0) {
             console.log('game over');
         }
