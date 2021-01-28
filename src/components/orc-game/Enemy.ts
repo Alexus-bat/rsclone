@@ -76,7 +76,7 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
     }
 
     get velocity() {
-        return this.body.velocity
+        return this.body.velocity;
     }
 
     walk(direction): void {
@@ -108,10 +108,10 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
         this.direction = randomDirection(this.direction)
     }
 
-    bounce(offsetX: number, offsetY: number, obj): void {
+    bounce(obj): void {
         const dx = this.x - obj.x;
         const dy = this.y - obj.y;
-        this.setVelocity(dx + offsetX, dy + offsetY);
+        this.setVelocity(dx, dy);
         this.wasAttacked = !this.wasAttacked;
     }
 
@@ -130,8 +130,6 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
     die(): void {
         this.body.isSleeping = true;
         this.isDead = true;
-        this.body.render = false;
-        this.body.opacity = false;
         this.anims.play('enemy-troll_dead', true);
         setTimeout(() => {
             this.destroy();
@@ -144,7 +142,7 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
         if (!this.isAttacking && !this.isDead) {
             this.walk(this.direction);
         } else if (this.wasAttacked && this.isAttacking && !this.isDead) {
-            this.bounce(15, 15, this.player);
+            this.bounce(this.player);
         } else if (this.health <= 0) {
             this.die();
         } else {
