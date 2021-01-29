@@ -20,7 +20,7 @@ export default class Main extends Phaser.Scene {
 
     constructor() {
         super('MainScene');
-        this.enemyAmount = 2;
+        this.enemyAmount = 10;
         this.maxEnemyAmount = 50;
         this.enemies = [];
     }
@@ -77,7 +77,7 @@ export default class Main extends Phaser.Scene {
             objectA: this.player,
             objectB: this.healthUnit,
             callback: (obj) => {
-                if (obj.gameObjectB !== 0 && obj.gameObjectB.texture !== null && obj.gameObjectB.texture.key === 'health') {
+                if (obj.gameObjectB !== null && obj.gameObjectB.texture !== undefined && obj.gameObjectB.texture.key === 'health') {
                         this.player.health += this.healthUnit.healthValue;
                         if (this.player.health > 100) {
                             this.player.health = 100;
@@ -176,11 +176,12 @@ export default class Main extends Phaser.Scene {
         setTimeout(() => {
             enemy.player.health -= health;
             enemy.player.clearTint();
-        }, 500)
+        }, 400)
         if (this.player.health <= 0) {
             this.player.health = 0;
+        } else {
+            enemy.player.tint = 0xff0000;
         }
-        enemy.player.tint = 0xff0000;
     }
 
     playerAttackHandler(player: any, health: number) {
