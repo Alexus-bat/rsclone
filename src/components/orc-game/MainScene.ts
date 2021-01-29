@@ -20,7 +20,7 @@ export default class Main extends Phaser.Scene {
 
     constructor() {
         super('MainScene');
-        this.enemyAmount = 2;
+        this.enemyAmount = 5;
         this.maxEnemyAmount = 50;
         this.enemies = [];
     }
@@ -34,7 +34,7 @@ export default class Main extends Phaser.Scene {
                 const currentEnemy = this.enemies.find((it: any) => it.body.id === enemyId);
                 if (currentEnemy) {
                     if (!currentEnemy.isDead) {
-                        this.enemyAttackHandler(currentEnemy, 0.2);
+                        this.enemyAttackHandler(currentEnemy, currentEnemy.damage);
                     }
 
                     if (currentEnemy.player.inputKeys.attack.isDown && !currentEnemy.player.isDead) {
@@ -67,7 +67,7 @@ export default class Main extends Phaser.Scene {
             objectA: this.player,
             objectB: this.healthUnit,
             callback: (obj) => {
-                if (obj.gameObjectB !== 0 && obj.gameObjectB.texture !== null && obj.gameObjectB.texture.key === 'health') {
+                if (obj.gameObjectB !== null && obj.gameObjectB.texture !== undefined && obj.gameObjectB.texture.key === 'health') {
                         this.player.health += this.healthUnit.healthValue;
                         if (this.player.health > 100) {
                             this.player.health = 100;
@@ -107,11 +107,19 @@ export default class Main extends Phaser.Scene {
                     y: helper.getRandomNumber(100, 412),
                     texture: 'enemy-troll',
                     frame: 'troll_idle_1',
+                    damage: 0.2,
+                    stayAnim: 'enemy-troll_idle',
+                    walkAnim: 'enemy-troll_walk',
+                    attackAnim: 'enemy-troll_attack',
+                    deadAnim: 'enemy-troll_dead',
+                    health: 100,
+                    speed: helper.getRandomNumber(1, 5),
                 }));
         }
         this.createHealth(40000, 15000);
-
-        this.createEnemy('enemy-troll', 'troll_idle_1', 5000);
+        this.createExecutorEnemy(20000);
+        this.createTrollEnemy(8000);
+        this.createGolemEnemy(90000);
 
         this.collisionHandler();
 
@@ -126,16 +134,73 @@ export default class Main extends Phaser.Scene {
         })
     }
 
-    createEnemy(texture: string, frame: string, delayOfCreate) {
+    createExecutorEnemy(delayOfCreate) {
         setInterval(() => {
             if (this.enemies.length <= this.maxEnemyAmount) {
                 this.enemies.push(
                     new Enemy({
                         scene: this,
                         x: helper.getRandomNumber(100, 412),
-                        y: helper.getRandomNumber(0, 412),
-                        texture: texture,
-                        frame: frame,
+                        y: helper.getRandomNumber(100, 412),
+                        texture: 'executor',
+                        frame: 'executioner_walk_1',
+                        damage: 0.4,
+                        stayAnim: 'executioner-idle',
+                        walkAnim: 'executioner-walk',
+                        attackAnim: 'executioner-attack',
+                        deadAnim: 'executioner-dead',
+                        health: 120,
+                        speed: helper.getRandomNumber(3, 5),
+                    }));
+                this.collisionHandler();
+            } else {
+                return
+            }
+        }, delayOfCreate);
+    }
+
+    createTrollEnemy(delayOfCreate) {
+        setInterval(() => {
+            if (this.enemies.length <= this.maxEnemyAmount) {
+                this.enemies.push(
+                    new Enemy({
+                        scene: this,
+                        x: helper.getRandomNumber(100, 412),
+                        y: helper.getRandomNumber(100, 412),
+                        texture: 'enemy-troll',
+                        frame: 'troll_idle_1',
+                        damage: 0.2,
+                        stayAnim: 'enemy-troll_idle',
+                        walkAnim: 'enemy-troll_walk',
+                        attackAnim: 'enemy-troll_attack',
+                        deadAnim: 'enemy-troll_dead',
+                        health: 100,
+                        speed: helper.getRandomNumber(2, 5),
+                    }));
+                this.collisionHandler();
+            } else {
+                return
+            }
+        }, delayOfCreate);
+    }
+
+    createGolemEnemy(delayOfCreate) {
+        setInterval(() => {
+            if (this.enemies.length <= this.maxEnemyAmount) {
+                this.enemies.push(
+                    new Enemy({
+                        scene: this,
+                        x: helper.getRandomNumber(100, 412),
+                        y: helper.getRandomNumber(100, 412),
+                        texture: 'golem',
+                        frame: 'golem_idle_1',
+                        damage: 5,
+                        stayAnim: 'golem-idle',
+                        walkAnim: 'golem-walk',
+                        attackAnim: 'golem-attack',
+                        deadAnim: 'golem-dead',
+                        health: 200,
+                        speed: helper.getRandomNumber(1, 2),
                     }));
                 this.collisionHandler();
             } else {
@@ -166,11 +231,12 @@ export default class Main extends Phaser.Scene {
         setTimeout(() => {
             enemy.player.health -= health;
             enemy.player.clearTint();
-        }, 500)
+        }, 400)
         if (this.player.health <= 0) {
             this.player.health = 0;
+        } else {
+            enemy.player.tint = 0xff0000;
         }
-        enemy.player.tint = 0xff0000;
     }
 
     playerAttackHandler(player: any, health: number) {

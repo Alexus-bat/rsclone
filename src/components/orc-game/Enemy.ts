@@ -6,6 +6,13 @@ interface DataInterface {
     y: number,
     texture: string | Phaser.Textures.Texture,
     frame?: string | number | undefined,
+    damage: number,
+    stayAnim: string,
+    walkAnim: string,
+    attackAnim: string,
+    deadAnim: string,
+    health: number,
+    speed: number
 }
 
 enum Direction {
@@ -13,15 +20,6 @@ enum Direction {
     Down,
     LEFT,
     RIGHT
-}
-
-const randomDirection = (exclude: Direction) => {
-    let newDirection = Phaser.Math.Between(0, 3)
-    while (newDirection === exclude) {
-        newDirection = Phaser.Math.Between(0, 3)
-    }
-
-    return newDirection
 }
 
 export default class Enemy extends Phaser.Physics.Matter.Sprite {
@@ -33,17 +31,28 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
     private isDead: boolean;
     private health: number;
     private player: any;
+    private walkAnim: string;
+    private stayAnim: string;
+    private deadAnim: string;
+    private attackAnim: string;
 
     constructor(data: DataInterface) {
-        const {scene, x, y, texture, frame} = data;
+        const {scene, x, y, texture, frame, damage, stayAnim, walkAnim, attackAnim, deadAnim, health, speed} = data;
         super(scene.matter.world, x, y, texture, frame);
         this.scene.add.existing(this);
         this.isAttacking = false;
         this.isDead = false;
         this.wasAttacked = false;
         this.direction = Direction.RIGHT;
-        this.health = 100;
+        this.health = health;
         this.player = null;
+        this.damage = damage;
+        this.speed = speed;
+
+        this.stayAnim = stayAnim;
+        this.walkAnim = walkAnim;
+        this.attackAnim = attackAnim;
+        this.deadAnim = deadAnim;
 
         const {Body, Bodies} = Phaser.Physics.Matter.Matter;
         const enemyCollider = Bodies.circle(this.x, this.y, 15, {isSensor: false, label: 'enemyCollider'});
@@ -56,7 +65,7 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
         this.moveEvent = scene.time.addEvent({
             delay: helper.getRandomNumber(1000, 3000),
             callback: () => {
-                this.direction = randomDirection(this.direction)
+                this.direction = helper.randomDirection(this.direction)
             },
             loop: true
         });
@@ -71,11 +80,11 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
 
     walk(direction): void {
         if (Math.abs(this.velocity.x) > 0.1 || Math.abs(this.velocity.y) > 0.1) {
-            this.anims.play('enemy-troll_walk', true);
+            this.anims.play(this.walkAnim, true);
         } else {
-            this.anims.play('enemy-troll_idle', true);
+            this.anims.play(this.stayAnim, true);
         }
-        this.speed = helper.getRandomNumber(1, 5);
+        // this.speed = helper.getRandomNumber(1, 5);
         switch (direction) {
             case Direction.UP:
                 this.setVelocity(0, -(this.speed));
@@ -95,7 +104,7 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
     }
 
     changeDirection() {
-        this.direction = randomDirection(this.direction)
+        this.direction = helper.randomDirection(this.direction)
     }
 
     bounce(obj): void {
@@ -108,7 +117,7 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
     chase(): void {
         const dx = this.player.x - this.x;
         const dy = this.player.y - this.y;
-        this.anims.play('enemy-troll_attack', true);
+        this.anims.play(this.attackAnim, true);
         if (Math.abs(dx) < 200 || Math.abs(dy) > 200) {
             this.speed = 1.5;
             this.setVelocity(Math.sign(dx) * this.speed, Math.sign(dy) * this.speed);
@@ -120,7 +129,7 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
     die(): void {
         this.body.isSleeping = true;
         this.isDead = true;
-        this.anims.play('enemy-troll_dead', true);
+        this.anims.play(this.deadAnim, true);
         setTimeout(() => {
             this.destroy();
         }, 5000)
