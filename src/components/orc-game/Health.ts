@@ -15,15 +15,6 @@ enum Direction {
     RIGHT
 }
 
-const randomDirection = (exclude: Direction) => {
-    let newDirection = Phaser.Math.Between(0, 3)
-    while (newDirection === exclude) {
-        newDirection = Phaser.Math.Between(0, 3)
-    }
-
-    return newDirection
-}
-
 export default class Health extends Phaser.Physics.Matter.Sprite {
     private direction: any;
     private speed: number;
@@ -48,7 +39,7 @@ export default class Health extends Phaser.Physics.Matter.Sprite {
         this.moveEvent = scene.time.addEvent({
             delay: helper.getRandomNumber(1000, 3000),
             callback: () => {
-                this.direction = randomDirection(this.direction)
+                this.direction = helper.randomDirection(this.direction)
             },
             loop: true
         });
@@ -56,11 +47,6 @@ export default class Health extends Phaser.Physics.Matter.Sprite {
         this.setExistingBody(compoundBody);
         this.setFixedRotation();
     }
-
-    // static preload(scene: Phaser.Scene) {
-    //     scene.load.atlas('health', '../assets/img/health.png', `../../assets/img/health_atlas.json`);
-    //     scene.load.animation('health_anim', '../assets/img/health_anim.json');
-    // }
 
     get velocity() {
         return this.body.velocity;
@@ -92,7 +78,7 @@ export default class Health extends Phaser.Physics.Matter.Sprite {
     }
 
     changeDirection() {
-        this.direction = randomDirection(this.direction)
+        this.direction = helper.randomDirection(this.direction)
     }
 
     preUpdate(time: number, delta: number): void {

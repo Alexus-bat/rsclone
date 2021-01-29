@@ -38,6 +38,18 @@ export default class Load extends Phaser.Scene {
         this.load.atlas('enemy-troll', '../assets/img/enemy-troll.png', `../../assets/img/enemy-troll_atlas.json`);
         this.load.atlas('enemy-troll-attack', '../assets/img/enemy-troll-attack.png', `../../assets/img/enemy-troll-attack_atlas.json`);
         this.load.atlas('enemy-troll-dead', '../assets/img/enemy-troll-dead.png', `../../assets/img/enemy-troll-dead_atlas.json`);
+        this.load.atlas('executor', '../assets/img/executor.png', `../../assets/img/executor_atlas.json`);
+        this.load.atlas('golem', '../assets/img/golem.png', `../../assets/img/golem_atlas.json`);
+
+        this.load.animation('golem-attack', '../assets/img/golem_anim.json');
+        this.load.animation('golem-dead', '../assets/img/golem_anim.json');
+        this.load.animation('golem-idle', '../assets/img/golem_anim.json');
+        this.load.animation('golem-walk', '../assets/img/golem_anim.json');
+
+        this.load.animation('executioner-attack', '../assets/img/executor_anim.json');
+        this.load.animation('executioner-dead', '../assets/img/executor_anim.json');
+        this.load.animation('executioner-idle', '../assets/img/executor_anim.json');
+        this.load.animation('executioner-walk', '../assets/img/executor_anim.json');
 
         this.load.animation('enemy-troll-attack_anim', '../assets/img/enemy-troll-attack_anim.json');
         this.load.animation('enemy-troll-dead_anim', '../assets/img/enemy-troll-dead_anim.json');
