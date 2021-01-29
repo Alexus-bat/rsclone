@@ -36,16 +36,6 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
         this.play(frame, true);
     }
 
-    static preload(scene: Phaser.Scene) {
-        scene.load.spritesheet('orc', '../assets/img/orc.png', {frameWidth: 64, frameHeight: 64});
-        scene.load.image('sword', '../assets/img/attack-icon.png');
-        scene.load.atlas('sword_anim', '../assets/img/sword_anim.png', '../assets/img/sword_anim_atlas.json');
-        scene.load.animation('sword-anim_anim', '../assets/img/sword_anim_anim.json');
-
-        scene.load.atlas('player-dead', '../assets/img/player-dead.png', `../../assets/img/player-dead_atlas.json`);
-        scene.load.animation('player-dead_anim', '../assets/img/player-dead_anim.json');
-    }
-
     update() {
         if (this.health <= 0) {
            this.die();

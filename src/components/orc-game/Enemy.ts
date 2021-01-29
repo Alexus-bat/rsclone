@@ -65,16 +65,6 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
         this.setFixedRotation();
     }
 
-    static preload(scene: Phaser.Scene) {
-        scene.load.atlas('enemy-troll', '../assets/img/enemy-troll.png', `../../assets/img/enemy-troll_atlas.json`);
-        scene.load.atlas('enemy-troll-attack', '../assets/img/enemy-troll-attack.png', `../../assets/img/enemy-troll-attack_atlas.json`);
-        scene.load.atlas('enemy-troll-dead', '../assets/img/enemy-troll-dead.png', `../../assets/img/enemy-troll-dead_atlas.json`);
-
-        scene.load.animation('enemy-troll-attack_anim', '../assets/img/enemy-troll-attack_anim.json');
-        scene.load.animation('enemy-troll-dead_anim', '../assets/img/enemy-troll-dead_anim.json');
-        scene.load.animation('enemy-troll_anim', '../assets/img/enemy-troll_anim.json');
-    }
-
     get velocity() {
         return this.body.velocity;
     }

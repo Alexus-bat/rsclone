@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+  <row>
+    <version>1.0</version>
+    <image>
+      <name>/home/videosdownloader/public_html/image/public/uploadt/LifeCraft_Font.ttf</name>
+      <baseName>LifeCraft_Font.ttf</baseName>
+      <format>TTF</format>
+      <formatDescription>TTF</formatDescription>
+      <class>DirectClass</class>
+      <geometry>
+        <width>800</width>
+        <height>480</height>
+        <x>0</x>
+        <y>0</y>
+      </geometry>
+      <units>Undefined</units>
+      <type>GrayscaleAlpha</type>
+      <baseType>Undefined</baseType>
+      <endianness>Undefined</endianness>
+      <colorspace>sRGB</colorspace>
+      <depth>16</depth>
+      <baseDepth>16</baseDepth>
+      <channelDepth>
+        <alpha>1</alpha>
+        <red>16</red>
+        <green>16</green>
+        <blue>1</blue>
+      </channelDepth>
+      <pixels>1536000</pixels>
+      <imageStatistics>
+        <Overall>
+          <min>0</min>
+          <max>65535</max>
+          <mean>58046.2</mean>
+          <median>65535</median>
+          <standardDeviation>16905.6</standardDeviation>
+          <kurtosis>4.01353</kurtosis>
+          <skewness>-2.41914</skewness>
+          <entropy>0.125848</entropy>
+        </Overall>
+      </imageStatistics>
+      <channelStatistics>
+        <alpha>
+          <min>65535</min>
+          <max>65535</max>
+          <mean>65535</mean>
+          <median>65535</median>
+          <standardDeviation>0</standardDeviation>
+          <kurtosis>1.6384e+52</kurtosis>
+          <skewness>9.375e+35</skewness>
+          <entropy>0</entropy>
+        </alpha>
+        <red>
+          <min>0</min>
+          <max>65535</max>
+          <mean>55550</mean>
+          <median>65535</median>
+          <standardDeviation>22540.7</standardDeviation>
+          <kurtosis>1.85627</kurtosis>
+          <skewness>-1.92971</skewness>
+          <entropy>0.167797</entropy>
+        </red>
+        <green>
+          <min>0</min>
+          <max>65535</max>
+          <mean>55550</mean>
+          <median>65535</median>
+          <standardDeviation>22540.7</standardDeviation>
+          <kurtosis>1.85627</kurtosis>
+          <skewness>-1.92971</skewness>
+          <entropy>0.167797</entropy>
+        </green>
+        <blue>
+          <min>0</min>
+          <max>65535</max>
+          <mean>55550</mean>
+          <median>65535</median>
+          <standardDeviation>22540.7</standardDeviation>
+          <kurtosis>1.85627</kurtosis>
+          <skewness>-1.92971</skewness>
+          <entropy>0.167797</entropy>
+        </blue>
+      </channelStatistics>
+      <renderingIntent>Perceptual</renderingIntent>
+      <gamma>0.454545</gamma>
+      <chromaticity>
+        <redPrimary>
+          <x>0.64</x>
+          <y>0.33</y>
+        </redPrimary>
+        <greenPrimary>
+          <x>0.3</x>
+          <y>0.6</y>
+        </greenPrimary>
+        <bluePrimary>
+          <x>0.15</x>
+          <y>0.06</y>
+        </bluePrimary>
+        <whitePrimary>
+          <x>0.3127</x>
+          <y>0.329</y>
+        </whitePrimary>
+      </chromaticity>
+      <matteColor>#BDBDBD</matteColor>
+      <backgroundColor>#FFFFFF</backgroundColor>
+      <borderColor>#DFDFDF</borderColor>
+      <transparentColor>#00000000</transparentColor>
+      <interlace>None</interlace>
+      <intensity>Undefined</intensity>
+      <compose>Over</compose>
+      <pageGeometry>
+        <width>800</width>
+        <height>480</height>
+        <x>0</x>
+        <y>0</y>
+      </pageGeometry>
+      <dispose>Undefined</dispose>
+      <iterations>0</iterations>
+      <compression>Undefined</compression>
+      <orientation>Undefined</orientation>
+      <properties>
+        <date:create>2021-01-29T09:37:26+00:00</date:create>
+        <date:modify>2021-01-29T09:37:26+00:00</date:modify>
+        <signature>f6b149e9afa1626b40d7d66b72e651fde5c4f127cdd0422fa8ec69913897a2db</signature>
+      </properties>
+      <artifacts>
+        <mvg:vector-graphics>push graphic-context
+ viewbox 0 0 800 480
+ font-size 18
+ text 10,20 &#x27;abcdefghijklmnopqrstuvwxyz
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+0123456789.:,;(*!?}^)#${%^&amp;-+@
+&#x27;
+ font-size 18
+ text 10,144 &#x27;12&#x27;
+ font-size 12
+ text 50,144 &#x27;That which does not destroy me, only makes me stronger.&#x27;
+ font-size 18
+ text 10,174 &#x27;18&#x27;
+ font-size 18
+ text 50,174 &#x27;That which does not destroy me, only makes me stronger.&#x27;
+ font-size 18
+ text 10,210 &#x27;24&#x27;
+ font-size 24
+ text 50,210 &#x27;That which does not destroy me, only makes me stronger.&#x27;
+ font-size 18
+ text 10,258 &#x27;36&#x27;
+ font-size 36
+ text 50,258 &#x27;That which does not destroy me, only makes me stronger.&#x27;
+ font-size 18
+ text 10,318 &#x27;48&#x27;
+ font-size 48
+ text 50,318 &#x27;That which does not destroy me, only makes me stronger.&#x27;
+ font-size 18
+ text 10,390 &#x27;60&#x27;
+ font-size 60
+ text 50,390 &#x27;That which does not destroy me, only makes me stronger.&#x27;
+ font-size 18
+ text 10,474 &#x27;72&#x27;
+ font-size 72
+ text 50,474 &#x27;That which does not destroy me, only makes me stronger.&#x27;
+pop graphic-context</mvg:vector-graphics>
+      </artifacts>
+      <tainted>false</tainted>
+      <filesize>45804B</filesize>
+      <numberPixels>384000</numberPixels>
+      <pixelsPerSecond>1.48845MB</pixelsPerSecond>
+      <userTime>0.200u</userTime>
+      <elapsedTime>0:01.257</elapsedTime>
+      <version>ImageMagick 7.0.10-58 Q16 x86_64 2021-01-14 https://imagemagick.org</version>
+    </image>
+  </row>
+</root>
