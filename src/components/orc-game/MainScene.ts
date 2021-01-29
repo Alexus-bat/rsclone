@@ -25,16 +25,6 @@ export default class Main extends Phaser.Scene {
         this.enemies = [];
     }
 
-    preload() {
-        Player.preload(this);
-        Enemy.preload(this);
-        Health.preload(this);
-        this.load.image('tiles', '../assets/img/RPGNature.png');
-        this.load.tilemapTiledJSON('map', '../assets/img/map.json');
-        this.load.audio('sound_walk', ['../assets/img/walk.wav']);
-        this.load.audio('sound_attack', ['../assets/img/attack.wav']);
-    }
-
     collisionHandler() {
         this.matterCollision.addOnCollideActive({
             objectA: this.player,
