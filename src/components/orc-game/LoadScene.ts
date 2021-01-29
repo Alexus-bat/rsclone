@@ -42,6 +42,9 @@ export default class Load extends Phaser.Scene {
         this.load.animation('enemy-troll-attack_anim', '../assets/img/enemy-troll-attack_anim.json');
         this.load.animation('enemy-troll-dead_anim', '../assets/img/enemy-troll-dead_anim.json');
         this.load.animation('enemy-troll_anim', '../assets/img/enemy-troll_anim.json');
+        // Health
+        this.load.atlas('health', '../assets/img/health.png', `../../assets/img/health_atlas.json`);
+        this.load.animation('health_anim', '../assets/img/health_anim.json');
     }
 
     create() {
