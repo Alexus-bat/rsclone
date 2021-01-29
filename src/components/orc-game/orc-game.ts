@@ -1,13 +1,15 @@
 import PhaserMatterCollisionPlugin from 'phaser-matter-collision-plugin';
+import LoadScene from './LoadScene.ts';
+import Menu from './Menu.ts';
 import MainScene from './MainScene.ts';
 
 const config = {
     width: 512,
     height: 512,
-    backgroundColor: '#333333',
+    backgroundColor: '0xF4CCA1',
     type: Phaser.AUTO,
     parent: 'canvas',
-    scene: [MainScene],
+    scene: [LoadScene, Menu, MainScene],
     scale: {
         zoom: 2,
     },
