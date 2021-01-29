@@ -57,10 +57,10 @@ export default class Health extends Phaser.Physics.Matter.Sprite {
         this.setFixedRotation();
     }
 
-    static preload(scene: Phaser.Scene) {
-        scene.load.atlas('health', '../assets/img/health.png', `../../assets/img/health_atlas.json`);
-        scene.load.animation('health_anim', '../assets/img/health_anim.json');
-    }
+    // static preload(scene: Phaser.Scene) {
+    //     scene.load.atlas('health', '../assets/img/health.png', `../../assets/img/health_atlas.json`);
+    //     scene.load.animation('health_anim', '../assets/img/health_anim.json');
+    // }
 
     get velocity() {
         return this.body.velocity;

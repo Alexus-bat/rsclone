@@ -34,7 +34,7 @@ export default class Load extends Phaser.Scene {
 
         this.load.atlas('player-dead', '../assets/img/player-dead.png', `../../assets/img/player-dead_atlas.json`);
         this.load.animation('player-dead_anim', '../assets/img/player-dead_anim.json');
-        // Enemy        
+        // Enemy
         this.load.atlas('enemy-troll', '../assets/img/enemy-troll.png', `../../assets/img/enemy-troll_atlas.json`);
         this.load.atlas('enemy-troll-attack', '../assets/img/enemy-troll-attack.png', `../../assets/img/enemy-troll-attack_atlas.json`);
         this.load.atlas('enemy-troll-dead', '../assets/img/enemy-troll-dead.png', `../../assets/img/enemy-troll-dead_atlas.json`);
@@ -42,6 +42,9 @@ export default class Load extends Phaser.Scene {
         this.load.animation('enemy-troll-attack_anim', '../assets/img/enemy-troll-attack_anim.json');
         this.load.animation('enemy-troll-dead_anim', '../assets/img/enemy-troll-dead_anim.json');
         this.load.animation('enemy-troll_anim', '../assets/img/enemy-troll_anim.json');
+        // Health
+        this.load.atlas('health', '../assets/img/health.png', `../../assets/img/health_atlas.json`);
+        this.load.animation('health_anim', '../assets/img/health_anim.json');
     }
 
     create() {
@@ -79,8 +82,8 @@ export default class Load extends Phaser.Scene {
 
         this.txt_progress = this.add.text(100, 200, 'Loading...')
         // Progress bar
-        let x = 10;
-        let y = Math.round(0.5 * this.CONFIG.height) + 5;
+        const x = 10;
+        const y = Math.round(0.5 * this.CONFIG.height) + 5;
         this.width = this.CONFIG.width - 2 * x;
         this.height = 18;
         this.progress = this.add.graphics({x: x, y: y})
@@ -93,7 +96,7 @@ export default class Load extends Phaser.Scene {
         this.progress?.fillStyle('0xFFFFFF', 1);
         this.progress?.fillRect(0, 0, this.width * value, this.height)
         // Percentage in progress bar
-        let perc = `${Math.round(value * 100)}%`
+        const perc = `${Math.round(value * 100)}%`
         this.txt_progress?.setText(perc);
     }
 }
