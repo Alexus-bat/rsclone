@@ -22,46 +22,46 @@ export default class Load extends Phaser.Scene {
         this.createLoadingBar();
         // files
         // MainScene
-        this.load.image('tiles', '../assets/img/RPGNature.png');
-        this.load.tilemapTiledJSON('map', '../assets/img/map.json');
-        this.load.audio('sound_walk', ['../assets/img/walk.wav']);
-        this.load.audio('sound_attack', ['../assets/img/attack.wav']);
+        this.load.image('tiles', './assets/img/RPGNature.png');
+        this.load.tilemapTiledJSON('map', './assets/img/map.json');
+        this.load.audio('sound_walk', ['./assets/img/walk.wav']);
+        this.load.audio('sound_attack', ['./assets/img/attack.wav']);
         // Player
-        this.load.spritesheet('orc', '../assets/img/orc.png', {frameWidth: 64, frameHeight: 64});
+        this.load.spritesheet('orc', './assets/img/orc.png', {frameWidth: 64, frameHeight: 64});
         // Weapon
-        this.load.image('sword', '../assets/img/attack-icon.png');
-        this.load.atlas('sword_anim', '../assets/img/sword_anim.png', '../assets/img/sword_anim_atlas.json');
-        this.load.animation('sword-anim_anim', '../assets/img/sword_anim_anim.json');
+        this.load.image('sword', './assets/img/attack-icon.png');
+        this.load.atlas('sword_anim', './assets/img/sword_anim.png', './assets/img/sword_anim_atlas.json');
+        this.load.animation('sword-anim_anim', './assets/img/sword_anim_anim.json');
         // Weapon__axe
-        this.load.image('axe', '../assets/img/axe.png');
-        this.load.atlas('weapon-axe', '../assets/img/weapon-axe.png', '../assets/img/weapon-axe_atlas.json');
-        this.load.animation('weapon-axe_anim', '../assets/img/weapon-axe_anim.json');
+        this.load.image('axe', './assets/img/axe.png');
+        this.load.atlas('weapon-axe', './assets/img/weapon-axe.png', './assets/img/weapon-axe_atlas.json');
+        this.load.animation('weapon-axe_anim', './assets/img/weapon-axe_anim.json');
 
-        this.load.atlas('player-dead', '../assets/img/player-dead.png', `../../assets/img/player-dead_atlas.json`);
-        this.load.animation('player-dead_anim', '../assets/img/player-dead_anim.json');
+        this.load.atlas('player-dead', './assets/img/player-dead.png', `./assets/img/player-dead_atlas.json`);
+        this.load.animation('player-dead_anim', './assets/img/player-dead_anim.json');
         // Enemy
-        this.load.atlas('enemy-troll', '../assets/img/enemy-troll.png', `../../assets/img/enemy-troll_atlas.json`);
-        this.load.atlas('enemy-troll-attack', '../assets/img/enemy-troll-attack.png', `../../assets/img/enemy-troll-attack_atlas.json`);
-        this.load.atlas('enemy-troll-dead', '../assets/img/enemy-troll-dead.png', `../../assets/img/enemy-troll-dead_atlas.json`);
-        this.load.atlas('executor', '../assets/img/executor.png', `../../assets/img/executor_atlas.json`);
-        this.load.atlas('golem', '../assets/img/golem.png', `../../assets/img/golem_atlas.json`);
+        this.load.atlas('enemy-troll', './assets/img/enemy-troll.png', `./assets/img/enemy-troll_atlas.json`);
+        this.load.atlas('enemy-troll-attack', './assets/img/enemy-troll-attack.png', `./assets/img/enemy-troll-attack_atlas.json`);
+        this.load.atlas('enemy-troll-dead', './assets/img/enemy-troll-dead.png', `./assets/img/enemy-troll-dead_atlas.json`);
+        this.load.atlas('executor', './assets/img/executor.png', `./assets/img/executor_atlas.json`);
+        this.load.atlas('golem', './assets/img/golem.png', `./assets/img/golem_atlas.json`);
 
-        this.load.animation('golem-attack', '../assets/img/golem_anim.json');
-        this.load.animation('golem-dead', '../assets/img/golem_anim.json');
-        this.load.animation('golem-idle', '../assets/img/golem_anim.json');
-        this.load.animation('golem-walk', '../assets/img/golem_anim.json');
+        this.load.animation('golem-attack', './assets/img/golem_anim.json');
+        this.load.animation('golem-dead', './assets/img/golem_anim.json');
+        this.load.animation('golem-idle', './assets/img/golem_anim.json');
+        this.load.animation('golem-walk', './assets/img/golem_anim.json');
 
-        this.load.animation('executioner-attack', '../assets/img/executor_anim.json');
-        this.load.animation('executioner-dead', '../assets/img/executor_anim.json');
-        this.load.animation('executioner-idle', '../assets/img/executor_anim.json');
-        this.load.animation('executioner-walk', '../assets/img/executor_anim.json');
+        this.load.animation('executioner-attack', './assets/img/executor_anim.json');
+        this.load.animation('executioner-dead', './assets/img/executor_anim.json');
+        this.load.animation('executioner-idle', './assets/img/executor_anim.json');
+        this.load.animation('executioner-walk', './assets/img/executor_anim.json');
 
-        this.load.animation('enemy-troll-attack_anim', '../assets/img/enemy-troll-attack_anim.json');
-        this.load.animation('enemy-troll-dead_anim', '../assets/img/enemy-troll-dead_anim.json');
-        this.load.animation('enemy-troll_anim', '../assets/img/enemy-troll_anim.json');
+        this.load.animation('enemy-troll-attack_anim', './assets/img/enemy-troll-attack_anim.json');
+        this.load.animation('enemy-troll-dead_anim', './assets/img/enemy-troll-dead_anim.json');
+        this.load.animation('enemy-troll_anim', './assets/img/enemy-troll_anim.json');
         // Health
-        this.load.atlas('health', '../assets/img/health.png', `../../assets/img/health_atlas.json`);
-        this.load.animation('health_anim', '../assets/img/health_anim.json');
+        this.load.atlas('health', './assets/img/health.png', `./assets/img/health_atlas.json`);
+        this.load.animation('health_anim', './assets/img/health_anim.json');
     }
 
     create() {
