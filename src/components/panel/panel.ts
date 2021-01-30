@@ -11,13 +11,13 @@ class Panel {
         const avatar: any = document.querySelector('.game-panel__player-status-avatar');
         healthRange.style.width = `${player.health}%`;
         health.innerText = `${Math.floor(player.health)}Hp`;
-        if (player.health <= 0) avatar.style.backgroundImage = 'url("../assets/img/death.jpg")';
+        if (player.health <= 0) avatar.style.backgroundImage = 'url("./assets/img/death.jpg")';
     }
     updatePlayerWeapon(player) {
         const weaponPicture: any = document.querySelector('.game-panel__player-status-weapon')
         const weaponName: any = document.querySelector('.game-panel__player-status-weapon__bar');
-        weaponPicture.style.backgroundImage = `url("../assets/img/${player.weaponName}-panel.jpg")`;
-        weaponName.innerHTML = `${player.weaponFullName}`;
+        weaponPicture.style.backgroundImage = `url("./assets/img/${player.weaponName}-panel.jpg")`;
+        weaponName.innerHTML = `${player.weaponFullName}`;пше
     }
 }
 
