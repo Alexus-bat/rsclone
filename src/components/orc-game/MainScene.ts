@@ -13,6 +13,7 @@ export default class Main extends Phaser.Scene {
     private enemyAmount: number;
     private maxEnemyAmount: number;
     private enemies: any;
+    private pauseBtn?: Phaser.GameObjects.Text
     private panel: any;
     attackSound?: Phaser.Sound.BaseSound;
     walkSound?: Phaser.Sound.BaseSound;
@@ -88,6 +89,9 @@ export default class Main extends Phaser.Scene {
         this.matter.world.convertTilemapLayer(layer1);
         this.walkSound = this.sound.add('sound_walk');
         this.attackSound = this.sound.add('sound_attack');
+
+        this.pauseBtn = this.add.text(200, 10, 'Pause').setInteractive();
+        this.pauseBtn.on('pointerup', this.onPause, this);
 
         createPlayerAnims(this.anims);
 
@@ -256,5 +260,9 @@ export default class Main extends Phaser.Scene {
                 this.enemies.splice(index, 1)
             }
         })
+    }
+
+    onPause() {
+        this.scene.pause();
     }
 }
