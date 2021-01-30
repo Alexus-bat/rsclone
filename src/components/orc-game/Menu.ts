@@ -1,5 +1,7 @@
 export default class Menu extends Phaser.Scene {
     private play?: Phaser.GameObjects.Text
+    private setting?: Phaser.GameObjects.Text
+    private about?: Phaser.GameObjects.Text
     private CONFIG?: Phaser.Core.Config | any
 
     constructor() {
@@ -12,21 +14,24 @@ export default class Menu extends Phaser.Scene {
 
     create() {
         // Game title
-        this.add.text(100, 100, 'ORC LIFE MATTER')
-        this.add.text(100, 150, 'MAIN MENU')
+        this.add.text(150, 50, 'ORC LIFE MATTER')
+        this.add.text(150, 100, 'MAIN MENU')
         // Click to play text
-        this.play = this.add.text(100, 200, 'Play').setInteractive();
+        this.play = this.add.text(100, 200, 'Single play').setInteractive();
+        this.setting = this.add.text(100, 250, 'Setting').setInteractive();
+        this.about = this.add.text(100, 300, 'About game').setInteractive();
         // create mouse input
-        // this.createMouseInput();
-        this.play.on('pointerup', this.goPLay, this)
-
-    }
-
-    createMouseInput() {
-        this.input.on('pointerup', this.goPLay, this);
+        this.play.on('pointerup', this.goPLay, this);
+        this.about.on('pointerup', this.goAbout, this);
     }
 
     goPLay() {
-        this.scene.start('MainScene')
+        this.scene.start('LevelScene')
+    }
+
+    goAbout() {
+        document.querySelector('.header').style.opacity = '1';
+        document.querySelector('.footer').style.opacity = '1';
+        this.sys.game.destroy(true);
     }
 }
