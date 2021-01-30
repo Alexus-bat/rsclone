@@ -16,14 +16,14 @@ export default class LevelScene extends Phaser.Scene {
 
     create() {
         // Game title
-        this.add.text(150, 50, 'ORC LIFE MATTER', {font: '36px LifeCraft', fill: '#FF0000'})
-        this.add.text(150, 100, 'Choose level', {font: '36px LifeCraft', fill: '#FF0000'})
+        this.add.text(150, 50, 'ORC LIFE MATTER', {font: '36px LifeCraft', fill: '#FF0000'}).setShadow(2, 2, '#FFFF00');
+        this.add.text(150, 100, 'Choose level', {font: '36px LifeCraft', fill: '#FF0000'}).setShadow(2, 2, '#FFFF00');
         // Click to play text
-        this.level1 = this.add.text(100, 200, 'Easy', {font: '24px LifeCraft', fill: '#FFFF00'}).setInteractive();
-        this.level2 = this.add.text(100, 250, 'Medium', {font: '24px LifeCraft', fill: '#FFFF00'}).setInteractive();
-        this.level3 = this.add.text(100, 300, 'Hard', {font: '24px LifeCraft', fill: '#FFFF00'}).setInteractive();
-        this.loadGame = this.add.text(100, 350, 'Load saved game', {font: '24px LifeCraft', fill: '#FFFF00'}).setInteractive();
-        this.menu = this.add.text(100, 400, 'Main menu', {font: '24px LifeCraft', fill: '#FFFF00'}).setInteractive();
+        this.level1 = this.add.text(100, 200, 'Easy', {font: '24px LifeCraft', fill: '#FFFF00'}).setShadow(2, 2, '#FF0000').setInteractive();
+        this.level2 = this.add.text(100, 250, 'Medium', {font: '24px LifeCraft', fill: '#FFFF00'}).setShadow(2, 2, '#FF0000').setInteractive();
+        this.level3 = this.add.text(100, 300, 'Hard', {font: '24px LifeCraft', fill: '#FFFF00'}).setShadow(2, 2, '#FF0000').setInteractive();
+        this.loadGame = this.add.text(100, 350, 'Load saved game', {font: '24px LifeCraft', fill: '#FFFF00'}).setShadow(2, 2, '#FF0000').setInteractive();
+        this.menu = this.add.text(100, 400, 'Main menu', {font: '24px LifeCraft', fill: '#FFFF00'}).setShadow(2, 2, '#FF0000').setInteractive();
         // create mouse input
         this.level1.on('pointerup', this.playLevel1, this)
 
