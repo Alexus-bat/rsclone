@@ -25,7 +25,7 @@ export default class Health extends Phaser.Physics.Matter.Sprite {
         const {scene, x, y, texture, frame} = data;
         super(scene.matter.world, x, y, texture, frame);
         this.scene.add.existing(this);
-        this.healthValue = helper.getRandomNumber(10, 30);
+        this.healthValue = helper.getRandomNumber(5, 15);
         this.speed = 4;
         this.direction = Direction.RIGHT;
         const {Body, Bodies} = Phaser.Physics.Matter.Matter;
