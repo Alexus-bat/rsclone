@@ -28,9 +28,14 @@ export default class Load extends Phaser.Scene {
         this.load.audio('sound_attack', ['../assets/img/attack.wav']);
         // Player
         this.load.spritesheet('orc', '../assets/img/orc.png', {frameWidth: 64, frameHeight: 64});
+        // Weapon
         this.load.image('sword', '../assets/img/attack-icon.png');
         this.load.atlas('sword_anim', '../assets/img/sword_anim.png', '../assets/img/sword_anim_atlas.json');
         this.load.animation('sword-anim_anim', '../assets/img/sword_anim_anim.json');
+        // Weapon__axe
+        this.load.image('axe', '../assets/img/axe.png');
+        this.load.atlas('weapon-axe', '../assets/img/weapon-axe.png', '../assets/img/weapon-axe_atlas.json');
+        this.load.animation('weapon-axe_anim', '../assets/img/weapon-axe_anim.json');
 
         this.load.atlas('player-dead', '../assets/img/player-dead.png', `../../assets/img/player-dead_atlas.json`);
         this.load.animation('player-dead_anim', '../assets/img/player-dead_anim.json');

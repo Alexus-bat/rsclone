@@ -1,0 +1,60 @@
+{
+    "frames": [
+        {
+            "filename": "weapon-axe-1",
+            "frame": {
+                "w": 25,
+                "h": 25,
+                "x": 1,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "weapon-axe-2",
+            "frame": {
+                "w": 25,
+                "h": 25,
+                "x": 27,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "weapon-axe-3",
+            "frame": {
+                "w": 25,
+                "h": 25,
+                "x": 1,
+                "y": 27
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "weapon-axe-4",
+            "frame": {
+                "w": 25,
+                "h": 25,
+                "x": 27,
+                "y": 27
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Gamma V2",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}

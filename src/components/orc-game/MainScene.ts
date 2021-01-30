@@ -4,6 +4,9 @@ import helper from '../helper/helper.ts';
 import {createPlayerAnims} from './PlayerAnims.ts';
 import Panel from "../panel/panel.ts";
 import Health from "./Health.ts";
+import Weapon from "./Weapon.ts";
+import weapons from "../weapons/weapon-config.ts";
+import enemies from "../enemies/enemies-config.ts";
 
 
 export default class Main extends Phaser.Scene {
@@ -20,9 +23,10 @@ export default class Main extends Phaser.Scene {
 
     constructor() {
         super('MainScene');
-        this.enemyAmount = 5;
+        this.enemyAmount = 6;
         this.maxEnemyAmount = 50;
         this.enemies = [];
+        this.misteryWeapon = null;
     }
 
     collisionHandler() {
@@ -38,7 +42,7 @@ export default class Main extends Phaser.Scene {
                     }
 
                     if (currentEnemy.player.inputKeys.attack.isDown && !currentEnemy.player.isDead) {
-                        this.playerAttackHandler(currentEnemy, 5);
+                        this.playerAttackHandler(currentEnemy, currentEnemy.player.damage);
                     }
                 }
             },
@@ -63,16 +67,33 @@ export default class Main extends Phaser.Scene {
             },
         })
 
-        this.matterCollision.addOnCollideStart({
+        this.matterCollision.addOnCollideEnd({
             objectA: this.player,
             objectB: this.healthUnit,
             callback: (obj) => {
                 if (obj.gameObjectB !== null && obj.gameObjectB.texture !== undefined && obj.gameObjectB.texture.key === 'health') {
                         this.player.health += this.healthUnit.healthValue;
+                        this.healthUnit.destroy();
                         if (this.player.health > 100) {
                             this.player.health = 100;
                         }
-                        this.healthUnit.destroy();
+                }
+            },
+        })
+
+        this.matterCollision.addOnCollideEnd({
+            objectA: this.player,
+            objectB: this.misteryWeapon,
+            callback: (obj) => {
+                if (obj.gameObjectB !== null && obj.gameObjectB.gameId && obj.gameObjectB.gameId === 'weapon') {
+                    this.player.weaponName = this.misteryWeapon.name;
+                    this.player.weaponFullName = this.misteryWeapon.fullName;
+                    this.misteryWeapon.destroy();
+                    this.player.weapon.destroy();
+                    this.player.damage += this.misteryWeapon.damage;
+                    this.player.weaponAttackAnim = this.misteryWeapon.nameAnim;
+                    this.player.weapon = this.player.scene.add.sprite(this.x + 10, this.y + 10, this.misteryWeapon.name, this.misteryWeapon.frame);
+                    this.backToStockWeapon(this.misteryWeapon.timer, this.misteryWeapon.damage);
                 }
             },
         })
@@ -101,26 +122,11 @@ export default class Main extends Phaser.Scene {
 
         for (let i = 0; i < this.enemyAmount; i += 1) {
             this.enemies.push(
-                new Enemy({
-                    scene: this,
-                    x: helper.getRandomNumber(100, 412),
-                    y: helper.getRandomNumber(100, 412),
-                    texture: 'enemy-troll',
-                    frame: 'troll_idle_1',
-                    damage: 0.2,
-                    stayAnim: 'enemy-troll_idle',
-                    walkAnim: 'enemy-troll_walk',
-                    attackAnim: 'enemy-troll_attack',
-                    deadAnim: 'enemy-troll_dead',
-                    health: 100,
-                    speed: helper.getRandomNumber(1, 5),
-                }));
+                new Enemy(enemies(this)[helper.getRandomNumber(0, enemies(this).length - 1)]));
         }
+        this.createEnemies(8000);
         this.createHealth(40000, 15000);
-        this.createExecutorEnemy(20000);
-        this.createTrollEnemy(8000);
-        this.createGolemEnemy(90000);
-
+        this.createMisteryWeapon(30000);
         this.collisionHandler();
 
         this.cameras.main.startFollow(this.player);
@@ -133,79 +139,27 @@ export default class Main extends Phaser.Scene {
             attack: Phaser.Input.Keyboard.KeyCodes.SPACE
         })
     }
-
-    createExecutorEnemy(delayOfCreate) {
+    createEnemies(delayOfCreate) {
         setInterval(() => {
             if (this.enemies.length <= this.maxEnemyAmount) {
-                this.enemies.push(
-                    new Enemy({
-                        scene: this,
-                        x: helper.getRandomNumber(100, 412),
-                        y: helper.getRandomNumber(100, 412),
-                        texture: 'executor',
-                        frame: 'executioner_walk_1',
-                        damage: 0.4,
-                        stayAnim: 'executioner-idle',
-                        walkAnim: 'executioner-walk',
-                        attackAnim: 'executioner-attack',
-                        deadAnim: 'executioner-dead',
-                        health: 120,
-                        speed: helper.getRandomNumber(3, 5),
-                    }));
-                this.collisionHandler();
-            } else {
-                return
-            }
-        }, delayOfCreate);
+                            this.enemies.push(
+                                new Enemy(enemies(this)[helper.getRandomNumber(0, enemies(this).length - 1)]));
+                            this.collisionHandler();
+                        } else {
+                            return
+                        }
+        },delayOfCreate)
     }
 
-    createTrollEnemy(delayOfCreate) {
+    createMisteryWeapon(delayOfCreate) {
         setInterval(() => {
-            if (this.enemies.length <= this.maxEnemyAmount) {
-                this.enemies.push(
-                    new Enemy({
-                        scene: this,
-                        x: helper.getRandomNumber(100, 412),
-                        y: helper.getRandomNumber(100, 412),
-                        texture: 'enemy-troll',
-                        frame: 'troll_idle_1',
-                        damage: 0.2,
-                        stayAnim: 'enemy-troll_idle',
-                        walkAnim: 'enemy-troll_walk',
-                        attackAnim: 'enemy-troll_attack',
-                        deadAnim: 'enemy-troll_dead',
-                        health: 100,
-                        speed: helper.getRandomNumber(2, 5),
-                    }));
+            if (!this.misteryWeapon) {
+                this.misteryWeapon = new Weapon(weapons(this)[0]);
                 this.collisionHandler();
             } else {
                 return
             }
-        }, delayOfCreate);
-    }
-
-    createGolemEnemy(delayOfCreate) {
-        setInterval(() => {
-            if (this.enemies.length <= this.maxEnemyAmount) {
-                this.enemies.push(
-                    new Enemy({
-                        scene: this,
-                        x: helper.getRandomNumber(100, 412),
-                        y: helper.getRandomNumber(100, 412),
-                        texture: 'golem',
-                        frame: 'golem_idle_1',
-                        damage: 5,
-                        stayAnim: 'golem-idle',
-                        walkAnim: 'golem-walk',
-                        attackAnim: 'golem-attack',
-                        deadAnim: 'golem-dead',
-                        health: 200,
-                        speed: helper.getRandomNumber(1, 2),
-                    }));
-                this.collisionHandler();
-            } else {
-                return
-            }
+            console.log(this.misteryWeapon);
         }, delayOfCreate);
     }
 
@@ -248,9 +202,23 @@ export default class Main extends Phaser.Scene {
         player.tint = 0xff0000;
     }
 
+    backToStockWeapon(delay: number, increaseDamage: number) {
+        setTimeout(() => {
+            this.player.weapon.destroy();
+            this.player.weaponName = 'sword';
+            this.player.weaponFullName = 'sword';
+            this.player.damage -= increaseDamage;
+            this.player.weaponAttackAnim = 'attack-sword';
+            this.player.weapon.destroy();
+            this.player.weapon = this.player.scene.add.sprite(this.x + 10, this.y + 10, 'sword', 'sword-anim-1');
+            this.misteryWeapon = null;
+        }, delay)
+    }
+
     update() {
         this.player?.update();
         this.panel.updatePlayerHealth(this.player);
+        this.panel.updatePlayerWeapon(this.player);
         this.enemies.forEach((it, index) => {
             if (it.isDead) {
                 this.enemies.splice(index, 1)

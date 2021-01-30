@@ -24,6 +24,20 @@
     background-image: url("../assets/img/avatar.jpg");
 }
 
+.game-panel__player-status-weapon {
+    position: relative;
+    width: 100%;
+    height: 100px;
+    //background-image: url("../assets/img/sword-panel.jpg");
+}
+
+.game-panel__player-status-weapon__bar {
+    position: relative;
+    text-align: center;
+    font-size: 1rem;
+    min-height: 20px;
+}
+
 .game-panel__player-status-health__bar {
     position: relative;
     text-align: center;
