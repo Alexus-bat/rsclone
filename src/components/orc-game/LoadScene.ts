@@ -90,9 +90,9 @@ export default class Load extends Phaser.Scene {
 
         // this.title = this.add.bitmapText(100, 100, 'LifeCraft', 'Loading Game', 75,)
 
-        this.title = this.add.text(100, 100, 'Game loading', {font: '36px LifeCraft', fill: '#FF0000'});
+        this.title = this.add.text(100, 100, 'Game loading', {font: '36px LifeCraft', fill: '#FF0000'}).setShadow(2, 2, '#FFFF00');
 
-        this.txt_progress = this.add.text(100, 200, 'Loading...', {font: '36px LifeCraft', fill: '#FF0000'})
+        this.txt_progress = this.add.text(100, 200, 'Loading...', {font: '36px LifeCraft', fill: '#FF0000'}).setShadow(2, 2, '#FFFF00');
         // Progress bar
         const x = 10;
         const y = Math.round(0.5 * this.CONFIG.height) + 5;
