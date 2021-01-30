@@ -34,5 +34,5 @@ const config = {
 
 
 export default function start(): Phaser.Game {
-    return new Phaser.Game(config);
+    new Phaser.Game(config);
 }

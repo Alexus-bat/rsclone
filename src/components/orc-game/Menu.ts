@@ -14,12 +14,13 @@ export default class Menu extends Phaser.Scene {
 
     create() {
         // Game title
-        this.add.text(150, 50, 'ORC LIFE MATTER')
-        this.add.text(150, 100, 'MAIN MENU')
+        this.add.text(150, 50, 'ORC LIFE MATTER', {font: '36px LifeCraft', fill: '#FF0000'})
+        this.add.text(150, 100, 'MAIN MENU', {font: '36px LifeCraft', fill: '#FF0000'})
         // Click to play text
-        this.play = this.add.text(100, 200, 'Single play').setInteractive();
-        this.setting = this.add.text(100, 250, 'Setting').setInteractive();
-        this.about = this.add.text(100, 300, 'About game').setInteractive();
+        this.play = this.add.text(100, 200, 'Single play', {font: '24px LifeCraft', fill: '#FFFF00'}).setInteractive();
+        this.score = this.add.text(100, 250, 'Score', {font: '24px LifeCraft', fill: '#FFFF00'}).setInteractive();
+        this.setting = this.add.text(100, 300, 'Setting', {font: '24px LifeCraft', fill: '#FFFF00'}).setInteractive();
+        this.about = this.add.text(100, 350, 'About game', {font: '24px LifeCraft', fill: '#FFFF00'}).setInteractive();
         // create mouse input
         this.play.on('pointerup', this.goPLay, this);
         this.about.on('pointerup', this.goAbout, this);
