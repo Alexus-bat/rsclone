@@ -13,6 +13,9 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
     private isDead: boolean;
     private attacking: boolean;
     private damage: number;
+    private weaponAttackAnim: string;
+    private weaponName: string;
+    private weaponFullName: string;
 
     constructor(data: DataInterface) {
         const {scene, x, y, texture, frame} = data;

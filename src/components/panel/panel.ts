@@ -17,7 +17,7 @@ class Panel {
         const weaponPicture: any = document.querySelector('.game-panel__player-status-weapon')
         const weaponName: any = document.querySelector('.game-panel__player-status-weapon__bar');
         weaponPicture.style.backgroundImage = `url("./assets/img/${player.weaponName}-panel.jpg")`;
-        weaponName.innerHTML = `${player.weaponFullName}`;пше
+        weaponName.innerHTML = `${player.weaponFullName}`;
     }
 }
 
