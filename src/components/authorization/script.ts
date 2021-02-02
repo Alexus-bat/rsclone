@@ -48,7 +48,21 @@ export function register(): void {
             },
             body: JSON.stringify({
                 login: log,
-                password: pass
+                password: pass,
+                levels: {
+                    easy: {
+                      kills: '',
+                      time: '',
+                    },
+                    medium: {
+                      kills: '',
+                      time: '',
+                    },
+                    hard:{
+                      kills: '',
+                      time: '',
+                    }
+                  },
             })
         })
         //.then(res => res.json())

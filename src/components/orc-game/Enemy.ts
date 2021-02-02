@@ -103,6 +103,9 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
         }
     }
 
+
+    preUpdate(time: number, delta: number, kills: number) {
+      
     changeDirection() {
         this.direction = helper.randomDirection(this.direction)
     }
@@ -136,6 +139,7 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
     }
 
     preUpdate(time: number, delta: number): void {
+      
         super.preUpdate(time, delta);
 
         if (!this.isAttacking && !this.isDead) {
