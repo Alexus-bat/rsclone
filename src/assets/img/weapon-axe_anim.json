@@ -1,0 +1,40 @@
+{
+    "anims": [
+        {
+            "key": "attack-axe",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "weapon-axe",
+                    "frame": "weapon-axe-1"
+                },
+                {
+                    "key": "weapon-axe",
+                    "frame": "weapon-axe-2"
+                },
+                {
+                    "key": "weapon-axe",
+                    "frame": "weapon-axe-3"
+                },
+                {
+                    "key": "weapon-axe",
+                    "frame": "weapon-axe-4"
+                },
+                {
+                    "key": "weapon-axe",
+                    "frame": "weapon-axe-3"
+                },
+                {
+                    "key": "weapon-axe",
+                    "frame": "weapon-axe-2"
+                },
+                {
+                    "key": "weapon-axe",
+                    "frame": "weapon-axe-1"
+                }
+            ]
+        }
+    ]
+}

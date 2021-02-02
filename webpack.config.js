@@ -147,7 +147,7 @@ const config = {
         ]
       },
       {
-        test: /\.(woff|woff2|ttf|otf|eot)$/,
+        test: /\.(woff|woff2|ttf|otf|eot|xml)$/,
         use: [{
           loader: 'file-loader',
           options: {

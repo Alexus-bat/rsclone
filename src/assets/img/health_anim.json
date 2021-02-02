@@ -1,0 +1,28 @@
+{
+    "anims": [
+        {
+            "key": "health_idle",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "health",
+                    "frame": "health_idle_1"
+                },
+                {
+                    "key": "health",
+                    "frame": "health_idle_2"
+                },
+                {
+                    "key": "health",
+                    "frame": "health_idle_3"
+                },
+                {
+                    "key": "health",
+                    "frame": "health_idle_4"
+                }
+            ]
+        }
+    ]
+}

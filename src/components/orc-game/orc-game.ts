@@ -1,16 +1,16 @@
 import PhaserMatterCollisionPlugin from 'phaser-matter-collision-plugin';
+import LoadScene from './LoadScene.ts';
+import Menu from './Menu.ts';
+import LevelScene from './LevelScene.ts';
 import MainScene from './MainScene.ts';
-
-// const windowWidth = window.innerWidth;
-// const windowHeight = window.innerHeight;
 
 const config = {
     width: 512,
     height: 512,
-    backgroundColor: '#333333',
+    backgroundColor: '0xF4CCA1',
     type: Phaser.AUTO,
     parent: 'canvas',
-    scene: [MainScene],
+    scene: [LoadScene, Menu, LevelScene, MainScene],
     scale: {
         zoom: 2,
     },
@@ -34,5 +34,5 @@ const config = {
 
 
 export default function start(): Phaser.Game {
-    return new Phaser.Game(config);
+    new Phaser.Game(config);
 }
