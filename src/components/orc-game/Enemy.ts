@@ -102,7 +102,7 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
         }
     }
 
-    preUpdate(time: number, delta: number) {
+    preUpdate(time: number, delta: number, kills: number) {
         super.preUpdate(time, delta);
 
         if (!this.isAttacking && !this.isDead) {
