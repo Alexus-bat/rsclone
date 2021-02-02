@@ -7,12 +7,14 @@ import Health from "./Health.ts";
 import Weapon from "./Weapon.ts";
 import weapons from "../weapons/weapon-config.ts";
 import enemies from "../enemies/enemies-config.ts";
+import levelConfig from "../level-config/level-config.ts";
 
 
 export default class Main extends Phaser.Scene {
     private player?: Phaser.Physics.Matter.Sprite | any
     private enemy?: Phaser.Physics.Matter.Sprite | any
     private healthUnit?: Phaser.Physics.Matter.Sprite | any
+    private misteryWeapon: any;
     private enemyAmount: number;
     private maxEnemyAmount: number;
     private enemies: any;
@@ -38,20 +40,16 @@ export default class Main extends Phaser.Scene {
                 const enemyId = obj.gameObjectB.body.id;
                 const currentEnemy = this.enemies.find((it: any) => it.body.id === enemyId);
                 if (currentEnemy) {
-                    if (!currentEnemy.isDead) {
+                    if (!currentEnemy.isDead)
                         this.enemyAttackHandler(currentEnemy, currentEnemy.damage);
-                    }
-
-                    if (currentEnemy.player.inputKeys.attack.isDown && !currentEnemy.player.isDead) {
+                    if (currentEnemy.player.inputKeys.attack.isDown && !currentEnemy.player.isDead)
                         this.playerAttackHandler(currentEnemy, currentEnemy.player.damage);
-                    }
                 }
             },
         });
 
         this.matterCollision.addOnCollideStart({
             objectA: this.enemies,
-
             callback: (obj: any) => {
                 const enemyId = obj.gameObjectA.body.id;
                 const currentEnemy = this.enemies.find((it: any) => it.body.id === enemyId);
@@ -62,7 +60,7 @@ export default class Main extends Phaser.Scene {
 
         this.matterCollision.addOnCollideStart({
             objectA: this.healthUnit,
-            callback: (obj: any) => {
+            callback: () => {
                 if (this.healthUnit !== undefined)
                     this.healthUnit.changeDirection();
             },
@@ -73,11 +71,11 @@ export default class Main extends Phaser.Scene {
             objectB: this.healthUnit,
             callback: (obj) => {
                 if (obj.gameObjectB !== null && obj.gameObjectB.texture !== undefined && obj.gameObjectB.texture.key === 'health') {
-                        this.player.health += this.healthUnit.healthValue;
-                        this.healthUnit.destroy();
-                        if (this.player.health > 100) {
-                            this.player.health = 100;
-                        }
+                    this.player.health += this.healthUnit.healthValue;
+                    this.healthUnit.destroy();
+                    if (this.player.health > 100) {
+                        this.player.health = 100;
+                    }
                 }
             },
         })
@@ -87,17 +85,21 @@ export default class Main extends Phaser.Scene {
             objectB: this.misteryWeapon,
             callback: (obj) => {
                 if (obj.gameObjectB !== null && obj.gameObjectB.gameId && obj.gameObjectB.gameId === 'weapon') {
-                    this.player.weaponName = this.misteryWeapon.name;
-                    this.player.weaponFullName = this.misteryWeapon.fullName;
-                    this.misteryWeapon.destroy();
-                    this.player.weapon.destroy();
-                    this.player.damage += this.misteryWeapon.damage;
-                    this.player.weaponAttackAnim = this.misteryWeapon.nameAnim;
-                    this.player.weapon = this.player.scene.add.sprite(this.x + 10, this.y + 10, this.misteryWeapon.name, this.misteryWeapon.frame);
-                    this.backToStockWeapon(this.misteryWeapon.timer, this.misteryWeapon.damage);
+                    this.changeWeapon();
                 }
             },
         })
+    }
+
+    changeWeapon() {
+        this.player.weaponName = this.misteryWeapon.name;
+        this.player.weaponFullName = this.misteryWeapon.fullName;
+        this.misteryWeapon.destroy();
+        this.player.weapon.destroy();
+        this.player.damage += this.misteryWeapon.damage;
+        this.player.weaponAttackAnim = this.misteryWeapon.nameAnim;
+        this.player.weapon = this.player.scene.add.sprite(this.x + 10, this.y + 10, this.misteryWeapon.name, this.misteryWeapon.frame);
+        this.backToStockWeapon(this.misteryWeapon.timer, this.misteryWeapon.damage);
     }
 
     create() {
@@ -115,7 +117,21 @@ export default class Main extends Phaser.Scene {
         this.pauseBtn.on('pointerup', this.onPause, this);
 
         createPlayerAnims(this.anims);
+        this.createAllCitizens();
+        this.collisionHandler();
 
+        this.cameras.main.startFollow(this.player);
+
+        this.player.inputKeys = this.input.keyboard.addKeys({
+            up: Phaser.Input.Keyboard.KeyCodes.W,
+            down: Phaser.Input.Keyboard.KeyCodes.S,
+            left: Phaser.Input.Keyboard.KeyCodes.A,
+            right: Phaser.Input.Keyboard.KeyCodes.D,
+            attack: Phaser.Input.Keyboard.KeyCodes.SPACE
+        })
+    }
+
+    createAllCitizens() {
         this.player = new Player({
             scene: this,
             x: 100,
@@ -129,46 +145,35 @@ export default class Main extends Phaser.Scene {
                 new Enemy(enemies(this)[helper.getRandomNumber(0, enemies(this).length - 1)]));
         }
         this.createEnemies(8000);
-        this.createHealth(40000, 15000);
-        this.createMisteryWeapon(30000);
-        this.collisionHandler();
-
-        this.cameras.main.startFollow(this.player);
-
-        this.player.inputKeys = this.input.keyboard.addKeys({
-            up: Phaser.Input.Keyboard.KeyCodes.W,
-            down: Phaser.Input.Keyboard.KeyCodes.S,
-            left: Phaser.Input.Keyboard.KeyCodes.A,
-            right: Phaser.Input.Keyboard.KeyCodes.D,
-            attack: Phaser.Input.Keyboard.KeyCodes.SPACE
-        })
+        this.createHealth(30000, 15000);
+        this.createMisteryWeapon(20000);
     }
+
     createEnemies(delayOfCreate) {
         setInterval(() => {
             if (this.enemies.length <= this.maxEnemyAmount) {
-                            this.enemies.push(
-                                new Enemy(enemies(this)[helper.getRandomNumber(0, enemies(this).length - 1)]));
-                            this.collisionHandler();
-                        } else {
-                            return
-                        }
-        },delayOfCreate)
+                this.enemies.push(
+                    new Enemy(enemies(this)[helper.getRandomNumber(0, enemies(this).length - 1)]));
+                this.collisionHandler();
+            } else {
+                return
+            }
+        }, delayOfCreate)
     }
 
     createMisteryWeapon(delayOfCreate) {
         setInterval(() => {
             if (!this.misteryWeapon) {
-                this.misteryWeapon = new Weapon(weapons(this)[0]);
+                this.misteryWeapon = new Weapon((weapons(this)[helper.getRandomNumber(0, weapons(this).length - 1)]));
                 this.collisionHandler();
             } else {
                 return
             }
-            console.log(this.misteryWeapon);
         }, delayOfCreate);
     }
 
     createHealth(delay: number, timeOfLife: number): void {
-         setInterval(() => {
+        setInterval(() => {
                 this.healthUnit = new Health({
                     scene: this,
                     x: helper.getRandomNumber(100, 412),
@@ -180,7 +185,7 @@ export default class Main extends Phaser.Scene {
                 this.collisionHandler();
                 setTimeout(() => this.healthUnit.destroy(), timeOfLife)
             }
-        , delay);
+            , delay);
     }
 
     enemyAttackHandler(enemy: any, health: number) {

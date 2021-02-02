@@ -32,10 +32,14 @@ export default class Load extends Phaser.Scene {
         this.load.image('sword', './assets/img/attack-icon.png');
         this.load.atlas('sword_anim', './assets/img/sword_anim.png', './assets/img/sword_anim_atlas.json');
         this.load.animation('sword-anim_anim', './assets/img/sword_anim_anim.json');
-        // Weapon__axe
+        // Weapon-axe
         this.load.image('axe', './assets/img/axe.png');
         this.load.atlas('weapon-axe', './assets/img/weapon-axe.png', './assets/img/weapon-axe_atlas.json');
         this.load.animation('weapon-axe_anim', './assets/img/weapon-axe_anim.json');
+        // Weapon-scythe
+        this.load.image('scythe', './assets/img/scythe.png');
+        this.load.atlas('weapon-scythe', './assets/img/weapon-scythe.png', './assets/img/weapon-scythe_atlas.json');
+        this.load.animation('weapon-scythe_anim', './assets/img/weapon-scythe_anim.json');
 
         this.load.atlas('player-dead', './assets/img/player-dead.png', `./assets/img/player-dead_atlas.json`);
         this.load.animation('player-dead_anim', './assets/img/player-dead_anim.json');
