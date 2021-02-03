@@ -1,0 +1,100 @@
+{
+    "anims": [
+        {
+            "key": "executioner-dead",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "executor",
+                    "frame": "execution_dead_1"
+                },
+                {
+                    "key": "executor",
+                    "frame": "execution_dead_2"
+                },
+                {
+                    "key": "executor",
+                    "frame": "execution_dead_3"
+                },
+                {
+                    "key": "executor",
+                    "frame": "execution_dead_4"
+                }
+            ]
+        },
+        {
+            "key": "executioner-attack",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "executor",
+                    "frame": "execution_attack_1"
+                },
+                {
+                    "key": "executor",
+                    "frame": "execution_attack_2"
+                },
+                {
+                    "key": "executor",
+                    "frame": "execution_attack_3"
+                },
+                {
+                    "key": "executor",
+                    "frame": "execution_attack_4"
+                }
+            ]
+        },
+        {
+            "key": "executioner-idle",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "executor",
+                    "frame": "executioner_idle_1"
+                },
+                {
+                    "key": "executor",
+                    "frame": "executioner_idle_2"
+                },
+                {
+                    "key": "executor",
+                    "frame": "executioner_idle_3"
+                },
+                {
+                    "key": "executor",
+                    "frame": "executioner_idle_4"
+                }
+            ]
+        },
+        {
+            "key": "executioner-walk",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 10,
+            "frames": [
+                {
+                    "key": "executor",
+                    "frame": "executioner_walk_1"
+                },
+                {
+                    "key": "executor",
+                    "frame": "executioner_walk_2"
+                },
+                {
+                    "key": "executor",
+                    "frame": "executioner_walk_3"
+                },
+                {
+                    "key": "executor",
+                    "frame": "executioner_walk_4"
+                }
+            ]
+        }
+    ]
+}
