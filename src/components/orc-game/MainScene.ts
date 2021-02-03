@@ -18,11 +18,16 @@ export default class Main extends Phaser.Scene {
     private enemyAmount: number;
     private maxEnemyAmount: number;
     private enemies: any;
-    private pauseBtn?: Phaser.GameObjects.Text
+    private pauseBtn!: Phaser.GameObjects.Text
+    private resumeBtn!: Phaser.GameObjects.Text
     private panel: any;
     attackSound?: Phaser.Sound.BaseSound;
     walkSound?: Phaser.Sound.BaseSound;
     timedEvent?: Phaser.Time.TimerEvent;
+    private intervalEnemy!: NodeJS.Timeout;
+    private intervalWeapon!: NodeJS.Timeout;
+    private intervalHealth!: NodeJS.Timeout;
+    private veil!: Phaser.GameObjects.Graphics
 
     constructor() {
         super('MainScene');
@@ -113,9 +118,6 @@ export default class Main extends Phaser.Scene {
         this.walkSound = this.sound.add('sound_walk');
         this.attackSound = this.sound.add('sound_attack');
 
-        this.pauseBtn = this.add.text(200, 10, 'Pause').setInteractive();
-        this.pauseBtn.on('pointerup', this.onPause, this);
-
         createPlayerAnims(this.anims);
         this.createAllCitizens();
         this.collisionHandler();
@@ -129,6 +131,8 @@ export default class Main extends Phaser.Scene {
             right: Phaser.Input.Keyboard.KeyCodes.D,
             attack: Phaser.Input.Keyboard.KeyCodes.SPACE
         })
+        
+        this.createPause();
     }
 
     createAllCitizens() {
@@ -150,7 +154,7 @@ export default class Main extends Phaser.Scene {
     }
 
     createEnemies(delayOfCreate) {
-        setInterval(() => {
+        this.intervalEnemy = setInterval(() => {
             if (this.enemies.length <= this.maxEnemyAmount) {
                 this.enemies.push(
                     new Enemy(enemies(this)[helper.getRandomNumber(0, enemies(this).length - 1)]));
@@ -162,7 +166,7 @@ export default class Main extends Phaser.Scene {
     }
 
     createMisteryWeapon(delayOfCreate) {
-        setInterval(() => {
+        this.intervalWeapon = setInterval(() => {
             if (!this.misteryWeapon) {
                 this.misteryWeapon = new Weapon((weapons(this)[helper.getRandomNumber(0, weapons(this).length - 1)]));
                 this.collisionHandler();
@@ -173,7 +177,7 @@ export default class Main extends Phaser.Scene {
     }
 
     createHealth(delay: number, timeOfLife: number): void {
-        setInterval(() => {
+        this.intervalHealth =  setInterval(() => {
                 this.healthUnit = new Health({
                     scene: this,
                     x: helper.getRandomNumber(100, 412),
@@ -235,7 +239,17 @@ export default class Main extends Phaser.Scene {
         })
     }
 
+    createPause() {
+        this.pauseBtn = this.add.text(512 / 2 - 50, 10, 'Pause', {font: '24px LifeCraft', color: '#FFFF00'}).setShadow(2, 2, '#FF0000').setInteractive();
+        this.pauseBtn.setScrollFactor(0);
+        this.pauseBtn.on('pointerup', this.onPause, this);
+    }
+
     onPause() {
+        clearInterval(this.intervalEnemy);
+        clearInterval(this.intervalHealth);
+        clearInterval(this.intervalWeapon);
         this.scene.pause();
+        this.scene.launch('PauseScene', {player: this.player, enemies: this.enemies, health: this.player.health})
     }
 }
