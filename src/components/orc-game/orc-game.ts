@@ -4,6 +4,7 @@ import Menu from './Menu.ts';
 import LevelScene from './LevelScene.ts';
 import MainScene from './MainScene.ts';
 import PauseScene from './PauseScene.ts'
+import DieScene from './DieScene.ts'
 
 const config = {
     width: 512,
@@ -11,7 +12,7 @@ const config = {
     backgroundColor: '0xF4CCA1',
     type: Phaser.AUTO,
     parent: 'canvas',
-    scene: [LoadScene, Menu, LevelScene, MainScene, PauseScene],
+    scene: [LoadScene, Menu, LevelScene, MainScene, PauseScene, DieScene],
     scale: {
         zoom: 2,
     },

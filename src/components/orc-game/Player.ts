@@ -123,6 +123,13 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
         this.body.isSleeping = true;
         this.isDead = true;
         this.play('player-dead', true);
+        
+        clearInterval(this.intervalEnemy);
+        clearInterval(this.intervalHealth);
+        clearInterval(this.intervalWeapon);
+        console.log(this)
+        this.scene.scene.pause();
+        this.scene.scene.launch('DieScene')
     }
 
     playSound(sound) {

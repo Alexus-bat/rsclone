@@ -250,6 +250,6 @@ export default class Main extends Phaser.Scene {
         clearInterval(this.intervalHealth);
         clearInterval(this.intervalWeapon);
         this.scene.pause();
-        this.scene.launch('PauseScene', {player: this.player, enemies: this.enemies, health: this.player.health})
+        this.scene.launch('PauseScene', {player: this.player, enemies: this.enemies, health: this.player.health, main: this})
     }
 }
