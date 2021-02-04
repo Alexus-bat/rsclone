@@ -8,20 +8,22 @@ export default class PauseScene extends Phaser.Scene {
     private text_saving!: Phaser.GameObjects.Text
     private CONFIG?: Phaser.Core.Config | any
     private veil!: Phaser.GameObjects.Graphics
-    private isFirstEvent?: boolean
+    private main!: Phaser.Scene
 
     constructor() {
         super({key: 'PauseScene', active: false});
     }
 
-    init({player, enemies, health}) {
+    init({player, enemies, health, main}) {
         this.CONFIG = this.sys.game.config;
         this.player = player;
         this.enemies = enemies;
         this.health = health;
-        console.log(this.player)
-        console.log(this.enemies)
-        console.log(this.health)
+        this.main = main
+        // console.log(this.player)
+        // console.log(this.enemies)
+        // console.log(this.health)
+        console.log(this.main)
     }
 
     create() {

@@ -68,7 +68,7 @@ export default class Load extends Phaser.Scene {
         this.load.animation('health_anim', './assets/img/health_anim.json');
     }
 
-    create() {
+    create() {        
         // Go menu
         this.time.addEvent({
             delay: 1000,

@@ -108,6 +108,7 @@ export default class Main extends Phaser.Scene {
     }
 
     create() {
+        this.cameras.main.setBackgroundColor('#C0C0C0')
         this.panel = new Panel('panel');
         const map = this.make.tilemap({key: 'map'});
         const tiles = map.addTilesetImage('RPGNature', 'tiles', 32, 32, 0, 0);
@@ -250,6 +251,6 @@ export default class Main extends Phaser.Scene {
         clearInterval(this.intervalHealth);
         clearInterval(this.intervalWeapon);
         this.scene.pause();
-        this.scene.launch('PauseScene', {player: this.player, enemies: this.enemies, health: this.player.health})
+        this.scene.launch('PauseScene', {player: this.player, enemies: this.enemies, health: this.player.health, main: this})
     }
 }
