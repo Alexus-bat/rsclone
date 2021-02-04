@@ -42,6 +42,8 @@ export default class Menu extends Phaser.Scene {
         document.querySelector('.header')!.style.visibility = 'visible';
         document.querySelector('.footer')!.style.opacity = '1';
         document.querySelector('.footer')!.style.visibility = 'visible';
+        document.querySelector('.about')!.style.opacity = '1';
+        document.querySelector('.about')!.style.visibility = 'visible';
 
         this.sys.game.destroy(true);
     }

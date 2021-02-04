@@ -8,8 +8,8 @@ import DieScene from './DieScene.ts'
 import ScoreScene from './ScoreScene.ts'
 
 const config = {
-    width: 512,
-    height: 512,
+    width: window.innerWidth / 2,
+    height: window.innerHeight / 2,
     resolution: window.devicePixelRatio,
     backgroundColor: '0xF4CCA1',
     type: Phaser.AUTO,
