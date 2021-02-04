@@ -26,7 +26,7 @@ export default class Menu extends Phaser.Scene {
         // create mouse input
         this.play.on('pointerup', this.goPLay, this);
         this.about.on('pointerup', this.goAbout, this);
-        this.score.on('pointerup', this.toScore, this)
+        this.score.on('pointerup', this.toScore, this);
     }
 
     goPLay() {
