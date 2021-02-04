@@ -5,14 +5,16 @@ import LevelScene from './LevelScene.ts';
 import MainScene from './MainScene.ts';
 import PauseScene from './PauseScene.ts'
 import DieScene from './DieScene.ts'
+import ScoreScene from './ScoreScene.ts'
 
 const config = {
     width: 512,
     height: 512,
+    resolution: window.devicePixelRatio,
     backgroundColor: '0xF4CCA1',
     type: Phaser.AUTO,
     parent: 'canvas',
-    scene: [LoadScene, Menu, LevelScene, MainScene, PauseScene, DieScene],
+    scene: [LoadScene, Menu, LevelScene, MainScene, PauseScene, DieScene, ScoreScene],
     scale: {
         zoom: 2,
     },

@@ -15,6 +15,7 @@ export default class LevelScene extends Phaser.Scene {
     }
 
     create() {
+        this.cameras.main.setBackgroundColor('#DEB887')
         // Game title
         this.add.text(150, 50, 'ORC LIFE MATTER', {font: '36px LifeCraft', color: '#FF0000'}).setShadow(2, 2, '#FFFF00');
         this.add.text(150, 100, 'Choose level', {font: '36px LifeCraft', color: '#FF0000'}).setShadow(2, 2, '#FFFF00');

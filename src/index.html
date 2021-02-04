@@ -14,18 +14,45 @@
     </div>
     <button class="header__btn-play">PLay game</button>
 </header>
+<section class="about">
+    <div class="about__header">
+        <h1 class="about__header__title">About game</h1>
+        <div class="about__header__text">
+            Данная игра представляет собой RPG survival game. Игроку предстоить управлять орком, чьей нелёгкой судьбой довелось бороться за свою свою жизнь в вымышленном мире, где царстует жестокость и беспощадность местных чудовищ. Отправляйтесь в несконаемое путешествие и помогите ему пережить затянутый день. Придите ему на помощь в обретении бессмертия. Ведь жизнь орка тоже важна...<br>
+            <img src="./assets/img/img_game-world.png">
+        </div>
+    </div>
+    <div class="about__how-play">
+        <h1 class="about__how-play__title">How to play</h1>
+        <div class="about__how-play__text">
+            Управление героем (орком) осуществляется посредством клавиш <strong>W, A, S, D</strong> - для перемещения персонажа, и <strong>SPACE</strong> - для атаки.<br>
+            <img src="./assets/img/img_kill.png"><br> В игре есть <strong>3 уровня сложности: Easy, Medium и Hard</strong> с соответствующей сложностью игры.<br>
+            Следите за уровнем ХП и не дайте орку умереть.<br>
+            <img src="./assets/img/img_hp&arm.png"><br>
+            Для восстановления ХП Орка поймайте грибок, который появляется с заданной периодичностью.<br>
+            <img src="./assets/img/img_health.png">
+            <br>
+            Для нанесения большего урона поднимайте выпадаемое оружее. <br>
+            <img src="./assets/img/img_arm-drop.png"><br>   
+            Есть возожность <strong>сохранения</strong> и <strong>загрузки</strong> игры.
+        </div>
+    </div>
+    <div class="about__develop">
+        <h1 class="about__develop__title">About develop</h1>
+    </div>
+</section>
 <div class="main">
     <div class="overlay hidden-item"></div>
     <div class="main__register-window hidden-item">
         <h1>Register</h1>
-        <input type="text" name="login" placeholder="Login" class="login">
+        <input type="text" name="login" placeholder="Login" class="login" autocomplete="off">
         <input type="password" name="login" placeholder="Password" class="password">
         <input type="submit" value="register" id="register">
         <p class="succes-window hidden-item">registration successful</p>
     </div>
     <div class="main__sign-in-window hidden-item">
         <h1>Sign In</h1>
-        <input type="text" name="login" placeholder="Login" class="login-sign-in">
+        <input type="text" name="login" placeholder="Login" class="login-sign-in" autocomplete="off">
         <input type="password" name="login" placeholder="Password" class="password-sign-in">
         <input type="submit" value="Sign In" id="sign-in">
         <p class="invalid-auth hidden-item">invalid username or password</p>
@@ -47,7 +74,6 @@
         </div>
     </div>
 </section>
-<div id="canvas"></div>
 <footer class="footer">
     <a href="https://rs.school/js/">
         <img src="./assets/img/rs_school_js.svg" alt="logo RS School">
@@ -60,5 +86,6 @@
         <a href="https://github.com/stengof">stengof</a>
     </div>
 </footer>
+<div id="canvas"></div>
 </body>
 </html>

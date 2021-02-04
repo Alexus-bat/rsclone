@@ -1,6 +1,7 @@
 export default class Menu extends Phaser.Scene {
     private play?: Phaser.GameObjects.Text
     private setting?: Phaser.GameObjects.Text
+    private score?: Phaser.GameObjects.Text
     private about?: Phaser.GameObjects.Text
     private CONFIG?: Phaser.Core.Config | any
 
@@ -13,6 +14,7 @@ export default class Menu extends Phaser.Scene {
     }
 
     create() {
+        this.cameras.main.setBackgroundColor('#808080')
         // Game title
         this.add.text(150, 50, 'ORC LIFE MATTER', {font: '36px LifeCraft', color: '#FF0000'}).setShadow(2, 2, '#FFFF00');
         this.add.text(150, 100, 'MAIN MENU', {font: '36px LifeCraft', color: '#FF0000'}).setShadow(2, 2, '#FFFF00');
@@ -24,10 +26,15 @@ export default class Menu extends Phaser.Scene {
         // create mouse input
         this.play.on('pointerup', this.goPLay, this);
         this.about.on('pointerup', this.goAbout, this);
+        this.score.on('pointerup', this.toScore, this)
     }
 
     goPLay() {
         this.scene.start('LevelScene')
+    }
+
+    toScore() {
+        this.scene.start('ScoreScene');
     }
 
     goAbout() {
