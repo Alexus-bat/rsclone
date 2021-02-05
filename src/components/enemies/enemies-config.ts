@@ -4,8 +4,8 @@ const enemies = (scene) => {
     return ([
             {
                 scene: scene,
-                x: helper.getRandomNumber(100, 412),
-                y: helper.getRandomNumber(100, 412),
+                x: helper.getRandomNumber(100, 812),
+                y: helper.getRandomNumber(100, 812),
                 texture: 'enemy-troll',
                 frame: 'troll_idle_1',
                 damage: 0.2,
@@ -18,8 +18,8 @@ const enemies = (scene) => {
             },
             {
                 scene: scene,
-                x: helper.getRandomNumber(100, 412),
-                y: helper.getRandomNumber(100, 412),
+                x: helper.getRandomNumber(100, 812),
+                y: helper.getRandomNumber(100, 812),
                 texture: 'executor',
                 frame: 'executioner_walk_1',
                 damage: 0.4,
@@ -32,8 +32,8 @@ const enemies = (scene) => {
             },
             {
                 scene: scene,
-                x: helper.getRandomNumber(100, 412),
-                y: helper.getRandomNumber(100, 412),
+                x: helper.getRandomNumber(100, 812),
+                y: helper.getRandomNumber(100, 812),
                 texture: 'golem',
                 frame: 'golem_idle_1',
                 damage: 1,
