@@ -23,21 +23,20 @@ export default class PauseScene extends Phaser.Scene {
         // console.log(this.player)
         // console.log(this.enemies)
         // console.log(this.health)
-        console.log(this.main)
     }
 
     create() {
         this.veil = this.add.graphics({ x: 0, y: 0});
         this.veil.fillStyle(0x000000, 0.8);
-        this.veil.fillRect(0, 0, 512, 512);
+        this.veil.fillRect(0, 0, this.CONFIG.width, this.CONFIG.height);
         
-        this.resumeBtn = this.add.text(512 / 2 - 50, 100, 'Resume', {font: '24px LifeCraft', color: '#FFFF00'}).setShadow(2, 2, '#FF0000').setInteractive();
+        this.resumeBtn = this.add.text(this.CONFIG.width / 2, this.CONFIG.height / 4, 'Resume', {font: '24px LifeCraft', color: '#FFFF00'}).setShadow(2, 2, '#FF0000').setInteractive();
         this.resumeBtn.on('pointerup', this.offPause, this);
 
-        this.saveBtn = this.add.text(512 / 2 - 50, 200, 'Save game', {font: '24px LifeCraft', color: '#FFFF00'}).setShadow(2, 2, '#FF0000').setInteractive();
+        this.saveBtn = this.add.text(this.CONFIG.width / 2, this.CONFIG.height / 2, 'Save game', {font: '24px LifeCraft', color: '#FFFF00'}).setShadow(2, 2, '#FF0000').setInteractive();
         this.saveBtn.on('pointerup', this.saving, this);
 
-        this.menuBtn = this.add.text(512 / 2 - 50, 300, 'Main menu', {font: '24px LifeCraft', color: '#FFFF00'}).setShadow(2, 2, '#FF0000').setInteractive();
+        this.menuBtn = this.add.text(this.CONFIG.width / 2, this.CONFIG.height * 3 / 4, 'Main menu', {font: '24px LifeCraft', color: '#FFFF00'}).setShadow(2, 2, '#FF0000').setInteractive();
         this.menuBtn.on('pointerup', this.toMenu, this);
     }
 

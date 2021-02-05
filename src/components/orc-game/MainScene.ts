@@ -28,6 +28,11 @@ export default class Main extends Phaser.Scene {
     private intervalWeapon!: NodeJS.Timeout;
     private intervalHealth!: NodeJS.Timeout;
     private veil!: Phaser.GameObjects.Graphics
+    private delayOfCreateEnemy!: number
+    private dps!: number
+    private score!: Phaser.GameObjects.Text
+    private scoreCount!: number
+    private CONFIG?: Phaser.Core.Config | any
 
     constructor() {
         super('MainScene');
@@ -35,6 +40,25 @@ export default class Main extends Phaser.Scene {
         this.maxEnemyAmount = 50;
         this.enemies = [];
         this.misteryWeapon = null;
+    }
+
+    init({lvl}) {
+        this.CONFIG = this.sys.game.config
+
+        switch(lvl) {
+            case 'level1': this.delayOfCreateEnemy = 5000;
+                            this.dps = 300;
+                            break;
+            case 'level2': this.delayOfCreateEnemy = 7000;
+                            this.dps = 400;
+                            break;
+
+            case 'level3': this.delayOfCreateEnemy = 9000;
+                            this.dps = 500;
+                            break;
+        }
+
+        this.scoreCount = 0;
     }
 
     collisionHandler() {
@@ -46,7 +70,7 @@ export default class Main extends Phaser.Scene {
                 const currentEnemy = this.enemies.find((it: any) => it.body.id === enemyId);
                 if (currentEnemy) {
                     if (!currentEnemy.isDead)
-                        this.enemyAttackHandler(currentEnemy, currentEnemy.damage);
+                        this.enemyAttackHandler(currentEnemy, currentEnemy.damage, this.dps);
                     if (currentEnemy.player.inputKeys.attack.isDown && !currentEnemy.player.isDead)
                         this.playerAttackHandler(currentEnemy, currentEnemy.player.damage);
                 }
@@ -134,6 +158,8 @@ export default class Main extends Phaser.Scene {
         })
         
         this.createPause();
+
+        this.score = this.add.text(10, 10, `Score: ${this.scoreCount}`, {font: '24px LifeCraft', color: '#FFFF00'}).setShadow(2, 2, '#FF0000').setScrollFactor(0)
     }
 
     createAllCitizens() {
@@ -149,12 +175,12 @@ export default class Main extends Phaser.Scene {
             this.enemies.push(
                 new Enemy(enemies(this)[helper.getRandomNumber(0, enemies(this).length - 1)]));
         }
-        this.createEnemies(8000);
+        this.createEnemies(this.delayOfCreateEnemy);
         this.createHealth(30000, 15000);
         this.createMisteryWeapon(20000);
     }
 
-    createEnemies(delayOfCreate) {
+    createEnemies(delayOfCreate: number) {
         this.intervalEnemy = setInterval(() => {
             if (this.enemies.length <= this.maxEnemyAmount) {
                 this.enemies.push(
@@ -193,13 +219,13 @@ export default class Main extends Phaser.Scene {
             , delay);
     }
 
-    enemyAttackHandler(enemy: any, health: number) {
+    enemyAttackHandler(enemy: any, health: number, damagePerSecond: number) {
         enemy.switchMode();
         enemy.player = this.player;
         setTimeout(() => {
             enemy.player.health -= health;
             enemy.player.clearTint();
-        }, 400)
+        }, damagePerSecond)
         if (this.player.health <= 0) {
             this.player.health = 0;
         } else {
@@ -236,12 +262,14 @@ export default class Main extends Phaser.Scene {
         this.enemies.forEach((it, index) => {
             if (it.isDead) {
                 this.enemies.splice(index, 1)
+                this.scoreCount++;
+                this.score.setText(`Score: ${this.scoreCount}`)
             }
         })
     }
 
     createPause() {
-        this.pauseBtn = this.add.text(512 / 2 - 50, 10, 'Pause', {font: '24px LifeCraft', color: '#FFFF00'}).setShadow(2, 2, '#FF0000').setInteractive();
+        this.pauseBtn = this.add.text(this.CONFIG.width / 2, 10, 'Pause', {font: '24px LifeCraft', color: '#FFFF00'}).setShadow(2, 2, '#FF0000').setInteractive();
         this.pauseBtn.setScrollFactor(0);
         this.pauseBtn.on('pointerup', this.onPause, this);
     }

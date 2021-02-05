@@ -26,14 +26,16 @@ export default class LevelScene extends Phaser.Scene {
         this.loadGame = this.add.text(100, 350, 'Load saved game', {font: '24px LifeCraft', color: '#FFFF00'}).setShadow(2, 2, '#FF0000').setInteractive();
         this.menu = this.add.text(100, 400, 'Main menu', {font: '24px LifeCraft', color: '#FFFF00'}).setShadow(2, 2, '#FF0000').setInteractive();
         // create mouse input
-        this.level1.on('pointerup', this.playLevel1, this)
+        this.level1.on('pointerup', () => this.playLevel('level1'), this)
+        this.level2.on('pointerup', () => this.playLevel('level2'), this)
+        this.level3.on('pointerup', () => this.playLevel('level3'), this)
 
         this.menu.on('pointerup', this.goMenu, this)
 
     }
 
-    playLevel1() {
-        this.scene.start('MainScene')
+    playLevel(complexity: string) {
+        this.scene.start('MainScene', {lvl: complexity})
     }
 
     goMenu() {
