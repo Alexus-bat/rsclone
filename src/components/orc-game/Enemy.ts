@@ -36,6 +36,7 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
     private stayAnim: string;
     private deadAnim: string;
     private attackAnim: string;
+    private damage: number;
 
     constructor(data: DataInterface) {
         const {scene, x, y, texture, frame, damage, stayAnim, walkAnim, attackAnim, deadAnim, health, speed} = data;

@@ -29,7 +29,7 @@ const levelConfig =
             maxEnemiesAmount: 80,
             layout: '', // if we have different map's:)
         }
-    ]
-}
+    ];
+
 
 export default levelConfig

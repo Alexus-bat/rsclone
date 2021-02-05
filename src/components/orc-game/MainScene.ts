@@ -46,17 +46,20 @@ export default class Main extends Phaser.Scene {
     init({lvl, isSound = true}) {
         this.CONFIG = this.sys.game.config
 
-        switch(lvl) {
-            case 'level1': this.delayOfCreateEnemy = 5000;
-                            this.dps = 300;
-                            break;
-            case 'level2': this.delayOfCreateEnemy = 7000;
-                            this.dps = 400;
-                            break;
+        switch (lvl) {
+            case 'level1':
+                this.delayOfCreateEnemy = 5000;
+                this.dps = 300;
+                break;
+            case 'level2':
+                this.delayOfCreateEnemy = 7000;
+                this.dps = 400;
+                break;
 
-            case 'level3': this.delayOfCreateEnemy = 9000;
-                            this.dps = 500;
-                            break;
+            case 'level3':
+                this.delayOfCreateEnemy = 9000;
+                this.dps = 500;
+                break;
         }
 
         this.isSound = isSound;
@@ -69,24 +72,37 @@ export default class Main extends Phaser.Scene {
             objectA: this.player,
             objectB: this.enemies,
             callback: (obj: any) => {
-                const enemyId = obj.gameObjectB.body.id;
-                const currentEnemy = this.enemies.find((it: any) => it.body.id === enemyId);
-                if (currentEnemy) {
-                    if (!currentEnemy.isDead)
-                        this.enemyAttackHandler(currentEnemy, currentEnemy.damage, this.dps);
-                    if (currentEnemy.player.inputKeys.attack.isDown && !currentEnemy.player.isDead)
-                        this.playerAttackHandler(currentEnemy, currentEnemy.player.damage);
-                }
+                    const enemyId = obj.gameObjectB.body.id;
+                    const currentEnemy = this.enemies.find((it: any) => {
+                        if (it.body) {
+                            return it.body.id === enemyId
+                        }
+                    });
+                    if (currentEnemy) {
+                        if (!currentEnemy.isDead)
+                            this.enemyAttackHandler(currentEnemy, currentEnemy.damage, this.dps);
+                        if (currentEnemy.player.inputKeys.attack.isDown && !currentEnemy.player.isDead)
+                            this.playerAttackHandler(currentEnemy, currentEnemy.player.damage);
+                    }
+
             },
         });
 
         this.matterCollision.addOnCollideStart({
             objectA: this.enemies,
             callback: (obj: any) => {
-                const enemyId = obj.gameObjectA.body.id;
-                const currentEnemy = this.enemies.find((it: any) => it.body.id === enemyId);
-                if (currentEnemy)
-                    currentEnemy.changeDirection();
+                if (this.enemies) {
+                    const enemyId = obj.gameObjectA.body.id;
+                    const currentEnemy = this.enemies.find((it: any) => {
+                        if (it.body) {
+                            return it.body.id === enemyId
+                        }
+                    });
+                    if (currentEnemy)
+                        currentEnemy.changeDirection();
+                } else {
+                    return
+                }
             },
         })
 
@@ -161,10 +177,13 @@ export default class Main extends Phaser.Scene {
             right: Phaser.Input.Keyboard.KeyCodes.D,
             attack: Phaser.Input.Keyboard.KeyCodes.SPACE
         })
-        
+
         this.createPause();
 
-        this.score = this.add.text(10, 10, `Score: ${this.scoreCount}`, {font: '24px LifeCraft', color: '#FFFF00'}).setShadow(2, 2, '#FF0000').setScrollFactor(0)
+        this.score = this.add.text(10, 10, `Score: ${this.scoreCount}`, {
+            font: '24px LifeCraft',
+            color: '#FFFF00'
+        }).setShadow(2, 2, '#FF0000').setScrollFactor(0)
     }
 
     createAllCitizens() {
@@ -209,11 +228,11 @@ export default class Main extends Phaser.Scene {
     }
 
     createHealth(delay: number, timeOfLife: number): void {
-        this.intervalHealth =  setInterval(() => {
+        this.intervalHealth = setInterval(() => {
                 this.healthUnit = new Health({
                     scene: this,
-                    x: helper.getRandomNumber(100, 412),
-                    y: helper.getRandomNumber(100, 412),
+                    x: helper.getRandomNumber(100, 812),
+                    y: helper.getRandomNumber(100, 812),
                     label: 'health',
                     texture: 'health',
                     frame: 'health_idle_1'
@@ -274,7 +293,10 @@ export default class Main extends Phaser.Scene {
     }
 
     createPause() {
-        this.pauseBtn = this.add.text(this.CONFIG.width / 2, 10, 'Pause', {font: '24px LifeCraft', color: '#FFFF00'}).setShadow(2, 2, '#FF0000').setInteractive();
+        this.pauseBtn = this.add.text(this.CONFIG.width / 2, 10, 'Pause', {
+            font: '24px LifeCraft',
+            color: '#FFFF00'
+        }).setShadow(2, 2, '#FF0000').setInteractive();
         this.pauseBtn.setScrollFactor(0);
         this.pauseBtn.on('pointerup', this.onPause, this);
     }
@@ -284,6 +306,11 @@ export default class Main extends Phaser.Scene {
         clearInterval(this.intervalHealth);
         clearInterval(this.intervalWeapon);
         this.scene.pause();
-        this.scene.launch('PauseScene', {player: this.player, enemies: this.enemies, health: this.player.health, main: this})
+        this.scene.launch('PauseScene', {
+            player: this.player,
+            enemies: this.enemies,
+            health: this.player.health,
+            main: this
+        })
     }
 }
