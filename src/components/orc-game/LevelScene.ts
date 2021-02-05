@@ -5,12 +5,14 @@ export default class LevelScene extends Phaser.Scene {
     private loadGame?: Phaser.GameObjects.Text
     private menu?: Phaser.GameObjects.Text
     private CONFIG?: Phaser.Core.Config | any
+    private isSound!: boolean
 
     constructor() {
         super({key: 'LevelScene', active: false});
     }
 
-    init() {
+    init({isSound}) {
+        this.isSound = isSound;
         this.CONFIG = this.sys.game.config;
     }
 
@@ -35,7 +37,7 @@ export default class LevelScene extends Phaser.Scene {
     }
 
     playLevel(complexity: string) {
-        this.scene.start('MainScene', {lvl: complexity})
+        this.scene.start('MainScene', {lvl: complexity, isSound: this.isSound})
     }
 
     goMenu() {

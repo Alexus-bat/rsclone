@@ -4,12 +4,14 @@ export default class Menu extends Phaser.Scene {
     private score?: Phaser.GameObjects.Text
     private about?: Phaser.GameObjects.Text
     private CONFIG?: Phaser.Core.Config | any
+    private isSound!: boolean
 
     constructor() {
         super({key: 'Menu', active: false});
     }
 
-    init() {
+    init({isSound = true}) {
+        this.isSound = isSound
         this.CONFIG = this.sys.game.config;
     }
 
@@ -26,15 +28,20 @@ export default class Menu extends Phaser.Scene {
         // create mouse input
         this.play.on('pointerup', this.goPLay, this);
         this.about.on('pointerup', this.goAbout, this);
+        this.setting.on('pointerup', this.toSetting, this)
         this.score.on('pointerup', this.toScore, this);
     }
 
     goPLay() {
-        this.scene.start('LevelScene')
+        this.scene.start('LevelScene', {isSound: this.isSound})
     }
 
     toScore() {
         this.scene.start('ScoreScene');
+    }
+
+    toSetting() {
+        this.scene.start('SettingScene')
     }
 
     goAbout() {

@@ -56,11 +56,15 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
             if (this.inputKeys?.left.isDown) {
                 this.body.isSleeping = false;
                 this.anims.play('walkLeft', true);
-                this.playSound(this.scene.walkSound);
-                playerVelocity.x = -1;
-                this.weapon.x = (this.x - 19);
-                this.weapon.y = (this.y + 10);
-                this.weapon.setFlip(true, false);
+                try {
+                    this.playSound(this.scene.walkSound);
+                } finally {
+                    playerVelocity.x = -1;
+                    this.weapon.x = (this.x - 19);
+                    this.weapon.y = (this.y + 10);
+                    this.weapon.setFlip(true, false);
+                }
+                
             } else if (this.inputKeys?.right.isDown) {
                 this.body.isSleeping = false;
                 this.anims.play('walkRight', true);
@@ -133,6 +137,7 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
     }
 
     playSound(sound) {
+        if (!sound) return;
         sound.play();
     }
 }

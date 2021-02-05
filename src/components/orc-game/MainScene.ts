@@ -33,6 +33,7 @@ export default class Main extends Phaser.Scene {
     private score!: Phaser.GameObjects.Text
     private scoreCount!: number
     private CONFIG?: Phaser.Core.Config | any
+    private isSound!: boolean
 
     constructor() {
         super('MainScene');
@@ -42,7 +43,7 @@ export default class Main extends Phaser.Scene {
         this.misteryWeapon = null;
     }
 
-    init({lvl}) {
+    init({lvl, isSound = true}) {
         this.CONFIG = this.sys.game.config
 
         switch(lvl) {
@@ -57,6 +58,8 @@ export default class Main extends Phaser.Scene {
                             this.dps = 500;
                             break;
         }
+
+        this.isSound = isSound;
 
         this.scoreCount = 0;
     }
@@ -140,8 +143,10 @@ export default class Main extends Phaser.Scene {
         const layer2 = map.createLayer('Tile Layer 2', tiles, 0, 0);
         layer1.setCollisionByProperty({collides: true});
         this.matter.world.convertTilemapLayer(layer1);
-        this.walkSound = this.sound.add('sound_walk');
-        this.attackSound = this.sound.add('sound_attack');
+        if (this.isSound) {
+            this.walkSound = this.sound.add('sound_walk');
+            this.attackSound = this.sound.add('sound_attack');
+        }
 
         createPlayerAnims(this.anims);
         this.createAllCitizens();
