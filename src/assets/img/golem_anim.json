@@ -1,0 +1,112 @@
+{
+    "anims": [
+        {
+            "key": "golem-dead",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "golem",
+                    "frame": "golem_dead_1"
+                },
+                {
+                    "key": "golem",
+                    "frame": "golem_dead_2"
+                },
+                {
+                    "key": "golem",
+                    "frame": "golem_dead_3"
+                },
+                {
+                    "key": "golem",
+                    "frame": "golem_dead_4"
+                }
+            ]
+        },
+        {
+            "key": "golem-attack",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "golem",
+                    "frame": "golem_attack_1"
+                },
+                {
+                    "key": "golem",
+                    "frame": "golem_attack_2"
+                },
+                {
+                    "key": "golem",
+                    "frame": "golem_attack_3"
+                }
+            ]
+        },
+        {
+            "key": "golem-idle",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "golem",
+                    "frame": "golem_idle_1"
+                },
+                {
+                    "key": "golem",
+                    "frame": "golem_idle_2"
+                },
+                {
+                    "key": "golem",
+                    "frame": "golem_idle_3"
+                },
+                {
+                    "key": "golem",
+                    "frame": "golem_idle_4"
+                },
+                {
+                    "key": "golem",
+                    "frame": "golem_idle_5"
+                },
+                {
+                    "key": "golem",
+                    "frame": "golem_idle_6"
+                }
+            ]
+        },
+        {
+            "key": "golem-walk",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "golem",
+                    "frame": "golem_walk_1"
+                },
+                {
+                    "key": "golem",
+                    "frame": "golem_walk_2"
+                },
+                {
+                    "key": "golem",
+                    "frame": "golem_walk_3"
+                },
+                {
+                    "key": "golem",
+                    "frame": "golem_walk_4"
+                },
+                {
+                    "key": "golem",
+                    "frame": "golem_walk_5"
+                },
+                {
+                    "key": "golem",
+                    "frame": "golem_walk_6"
+                }
+            ]
+        }
+    ]
+}

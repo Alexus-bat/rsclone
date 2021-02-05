@@ -1,0 +1,28 @@
+{
+    "anims": [
+        {
+            "key": "enemy-troll_dead",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 7,
+            "frames": [
+                {
+                    "key": "enemy-troll-dead",
+                    "frame": "troll_dead_1"
+                },
+                {
+                    "key": "enemy-troll-dead",
+                    "frame": "troll_dead_2"
+                },
+                {
+                    "key": "enemy-troll-dead",
+                    "frame": "troll_dead_3"
+                },
+                {
+                    "key": "enemy-troll-dead",
+                    "frame": "troll_attack_4"
+                }
+            ]
+        }
+    ]
+}

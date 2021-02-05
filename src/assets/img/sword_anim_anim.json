@@ -1,0 +1,40 @@
+{
+    "anims": [
+        {
+            "key": "attack-sword",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 20,
+            "frames": [
+                {
+                    "key": "sword_anim",
+                    "frame": "sword-anim-1"
+                },
+                {
+                    "key": "sword_anim",
+                    "frame": "sword-anim-2"
+                },
+                {
+                    "key": "sword_anim",
+                    "frame": "sword-anim-3"
+                },
+                {
+                    "key": "sword_anim",
+                    "frame": "sword-anim-4"
+                },
+                {
+                    "key": "sword_anim",
+                    "frame": "sword-anim-31"
+                },
+                {
+                    "key": "sword_anim",
+                    "frame": "sword-anim-21"
+                },
+                {
+                    "key": "sword_anim",
+                    "frame": "sword-anim-11"
+                }
+            ]
+        }
+    ]
+}

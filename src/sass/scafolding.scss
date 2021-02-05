@@ -1,0 +1,54 @@
+@import "variables.scss";
+@import "mixin.scss";
+
+@font-face {
+  font-weight: 400;
+  font-family: 'Nunito';
+  font-style: normal;
+  src: url('../assets/fonts/nunito-regular.ttf');
+}
+
+@font-face {
+  font-weight: 600;
+  font-family: 'Nunito';
+  font-style: normal;
+  src: url('../assets/fonts/nunito-bold.ttf');
+}
+
+@font-face {
+  font-weight: 400;
+  font-family: 'LifeCraft';
+  font-style: normal;
+  src: url('../assets/fonts/lifecraft.ttf');
+}
+
+body {
+  position: relative;
+  font-family: 'LifeCraft', sans-serif;
+  font-weight: 400;
+  background-color: $body-bg;
+  font-size: $main-font-size;
+  line-height: $main-line-height;
+  color: $main-font-color;
+  background-size: 100% 100%;
+  margin: 0;
+  color: white;
+  font-size: 32px;
+  display: flex;
+  justify-content: center;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}

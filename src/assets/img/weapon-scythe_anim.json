@@ -1,0 +1,24 @@
+{
+    "anims": [
+        {
+            "key": "attack-scythe",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "weapon-scythe",
+                    "frame": "scythe"
+                },
+                {
+                    "key": "weapon-scythe",
+                    "frame": "weapon-scythe-1"
+                },
+                {
+                    "key": "weapon-scythe",
+                    "frame": "weapon-scythe-2"
+                }
+            ]
+        }
+    ]
+}

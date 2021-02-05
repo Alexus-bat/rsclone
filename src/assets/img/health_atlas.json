@@ -1,0 +1,60 @@
+{
+    "frames": [
+        {
+            "filename": "health_idle_1",
+            "frame": {
+                "w": 32,
+                "h": 32,
+                "x": 2,
+                "y": 2
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "health_idle_2",
+            "frame": {
+                "w": 32,
+                "h": 32,
+                "x": 36,
+                "y": 2
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "health_idle_3",
+            "frame": {
+                "w": 32,
+                "h": 32,
+                "x": 2,
+                "y": 36
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "health_idle_4",
+            "frame": {
+                "w": 32,
+                "h": 32,
+                "x": 36,
+                "y": 36
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Gamma V2",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}
